@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
           if(res.succeeded){
             localStorage.setItem('token',res.token);
             var tok = localStorage.getItem('token');
-            console.log(this.helper.decodeToken(tok));
+            this.authservice.loggedin(tok);
           }
         },
         (error) =>{

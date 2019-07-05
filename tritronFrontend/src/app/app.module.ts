@@ -18,6 +18,7 @@ import { RegisterComponent } from './comps/register/register.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {LoginComponent} from './comps/login/login.component';
+import {AuthService} from './services/auth.service';
 
 export function tokenGetter() {
     return localStorage.getItem("token");

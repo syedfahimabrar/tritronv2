@@ -21,7 +21,7 @@ namespace tritronAPI.Persist
         private DataContext _context;
         private SignInManager<User> _signInManager;
         private UserManager<User> _userManager;
-
+        private string propic = "https://i.imgur.com/JajsGwl.png";
         public Auth(DataContext context,UserManager<User> userManager,SignInManager<User> signInManager)
         {
             this._context = context;
@@ -52,7 +52,7 @@ namespace tritronAPI.Persist
                     {
                             new Claim("UserID",user.Id.ToString()),
                             new Claim(ClaimTypes.Name,user.UserName.ToString()),
-                            new Claim("profilepic",user.ProfilePicUrl == null?"null":user.ProfilePicUrl), 
+                            new Claim("profilepic",user.ProfilePicUrl == null?propic:user.ProfilePicUrl), 
                             new Claim(_options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),

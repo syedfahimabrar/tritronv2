@@ -29,6 +29,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
             </button>
         </div>
+        <!--<img _ngcontent-c8="" alt="Thumbnail Image" class="rounded-circle img-raised" src="assets/img/avatar.jpg">-->
         <div class="collapse navbar-collapse" data-nav-image="assets/img/blurred-image-1.jpg" data-color="orange">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
@@ -62,6 +63,25 @@
                   </a>
                 </li>
             </ul>
+            <ul *ngIf="(token != null)" class="nav navbar-nav navbar-right">
+                <li>
+                    <div class="inset">
+                        <img [src]="profilepic">
+                    </div>
+                </li>
+                <pre>    </pre>
+                <li>
+                    <button (click)="logout()" class="btn btn-warning">LogOut</button>
+                </li>
+
+            </ul>
+            <ul *ngIf="(token == null)" class="nav navbar-nav navbar-right">
+                <li>
+                    <button routerLink="/login" class="btn btn-warning">LogIn</button>
+                </li>
+
+            </ul>
         </div>
+
     </div>
 </nav>

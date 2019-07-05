@@ -3,6 +3,8 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '../common.service';
 import {Observable, Subscription} from 'rxjs';
+import {AuthService} from '../../services/auth.service';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Component({
     selector: 'app-navbar',
@@ -13,22 +15,35 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private toggleButton: any;
     private sidebarVisible: boolean;
     public subscription: Subscription;
+    public tokenSubscription:Subscription;
+    public profilepicsubscription;
     isTrans;
-    constructor(public location: Location, private element: ElementRef, public service: CommonService) {
+    token:string;
+    profilepic:string;
+    constructor(public location: Location, private element: ElementRef,
+                public service: CommonService,private authService:AuthService,private helper: JwtHelperService) {
         this.sidebarVisible = false;
-
     }
     ngOnInit() {
         this.isTrans = false;
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
-      this.subscription =  this.service.isTrans.subscribe((isTrans) => { this.isTrans = isTrans;});
+        this.subscription =  this.service.isTrans.subscribe((isTrans) => { this.isTrans = isTrans;});
+        this.tokenSubscription = this.authService.tok.subscribe((tok) => {this.token = tok;console.log("triggered");});
+        this.profilepicsubscription = this.authService.propic.subscribe((pic)=>{this.profilepic = pic});
+        if(this.profilepic == null)
+            this.profilepic = this.helper.decodeToken(this.token).profilepic;
         //console.log(this.router.url);
+    }
+    timer(ms) {
+        return new Promise(res => setTimeout(res, ms));
     }
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
-
+    logout(){
+        this.authService.logout();
+    }
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const html = document.getElementsByTagName('html')[0];
