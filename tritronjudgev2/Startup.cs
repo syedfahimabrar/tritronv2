@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using tritronAPI.Data;
 using tritronAPI.DTOs;
 using tritronAPI.Model;
@@ -34,6 +37,7 @@ namespace tritronAPI
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDefaultIdentity<User>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DataContext>();
 
             services.Configure<IdentityOptions>(options =>
@@ -57,6 +61,26 @@ namespace tritronAPI
             services.AddCors();
             services.AddScoped<IAuth, Auth>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //jwt authentication
+            var key = Encoding.UTF8.GetBytes("Fahim123456789Fahim123456789Fahim123456789Fahim123456789Fahim123456789");
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                }).AddJwtBearer(x =>{
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = false;
+                    x.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ClockSkew = TimeSpan.Zero
+                    };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

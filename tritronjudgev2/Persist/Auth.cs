@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using tritronAPI.Data;
 using tritronAPI.Model;
 using System.Net;
+using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using tritronAPI.DTOs;
+using tritronAPI.Extensions;
 
 namespace tritronAPI.Persist
 {
@@ -25,21 +31,48 @@ namespace tritronAPI.Persist
         public async Task<IdentityResult> Register(User user, string password)
         {
             var result = await this._userManager.CreateAsync(user, password);
+            if(result.Succeeded)
+                await _userManager.AddToRoleAsync(user, "gen");
             return result;
         }
-
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public async Task<LoginResult> Login(UserLoginDTO userlogindto)
         {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            var user = await _userManager.FindByNameAsync(userlogindto.UserName.ToLower());
+            if (user == null)
+                user = await _userManager.FindByEmailAsync(userlogindto.UserName.ToLower());
+            if(user != null && await _userManager.CheckPasswordAsync(user,userlogindto.PassWord))
             {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
+                //Get role assigned to the user
+                var role = await _userManager.GetRolesAsync(user);
+                IdentityOptions _options = new IdentityOptions();
 
-        public Task<User> Login(string userName, string password)
-        {
-            throw new NotImplementedException();
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                            new Claim("UserID",user.Id.ToString()),
+                            new Claim(ClaimTypes.Name,user.UserName.ToString()),
+                            new Claim("profilepic",user.ProfilePicUrl == null?"null":user.ProfilePicUrl), 
+                            new Claim(_options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(1),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Fahim123456789Fahim123456789Fahim123456789Fahim123456789Fahim123456789")), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                var token = tokenHandler.WriteToken(securityToken);
+                var result = new LoginResult()
+                {
+                    Succeeded = true,
+                    Token = token
+                };
+                return result;
+
+            }else if (user == null)
+            {
+                return new LoginResult(){Succeeded = false,Error = "user does not exist"};
+            }
+            return new LoginResult(){Succeeded = false,Error = "Password does not match"};
         }
 
         public bool UserExist(string userName)
