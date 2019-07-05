@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ComponentsComponent } from './components/components.component';
 import { LandingComponent } from './examples/landing/landing.component';
-import { LoginComponent } from './examples/login/login.component';
 import { ProfileComponent } from './examples/profile/profile.component';
 import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.component';
 import {HomeComponent} from './comps/home/home.component';
 import {ContestsComponent} from './comps/contests/contests.component';
 import {ProblemsComponent} from './comps/problems/problems.component';
 import {RegisterComponent} from './comps/register/register.component';
+import {LoginComponent} from './comps/login/login.component';
 
 const routes: Routes =[
     // { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -20,9 +20,9 @@ const routes: Routes =[
     //{ path: 'index',                component: ComponentsComponent },
     { path: 'problems',          component: ProblemsComponent },
     { path: 'register',          component: RegisterComponent },
+    { path: 'login',          component: LoginComponent },
     { path: 'nucleoicons',          component: NucleoiconsComponent },
     { path: 'examples/landing',     component: LandingComponent },
-    { path: 'examples/login',       component: LoginComponent },
     { path: 'examples/profile',     component: ProfileComponent }
 ];
 

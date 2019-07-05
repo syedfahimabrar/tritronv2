@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { ExamplesModule } from './examples/examples.module';
+import { JwtModule } from "@auth0/angular-jwt";
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -16,6 +17,11 @@ import { ContestlistitemComponent } from './comps/contests/contestlistitem/conte
 import { RegisterComponent } from './comps/register/register.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
+import {LoginComponent} from './comps/login/login.component';
+
+export function tokenGetter() {
+    return localStorage.getItem("token");
+}
 
 @NgModule({
     declarations: [
@@ -25,7 +31,8 @@ import {ToastrModule} from 'ngx-toastr';
         ContestsComponent,
         ProblemsComponent,
         ContestlistitemComponent,
-        RegisterComponent
+        RegisterComponent,
+        LoginComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -37,7 +44,15 @@ import {ToastrModule} from 'ngx-toastr';
         ExamplesModule,
         HttpClientModule,
         ToastrModule.forRoot(),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                skipWhenExpired: true,
+                whitelistedDomains: ["example.com"],
+                blacklistedRoutes: ["example.com/examplebadroute/"]
+            }
+        })
     ],
     providers: [],
     bootstrap: [AppComponent]
