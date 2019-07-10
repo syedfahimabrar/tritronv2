@@ -21,7 +21,7 @@
       </div>
         <div class="navbar-translate">
             <a class="navbar-brand" [routerLink]="['']" placement="bottom" ngbTooltip="Home">
-                Tritron Judge
+                <img src="/assets/logo.png" class="creative-tim-logo" >
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
                 <span class="navbar-toggler-bar bar1"></span>
@@ -64,10 +64,11 @@
                 </li>
             </ul>
             <ul *ngIf="(token != null)" class="nav navbar-nav navbar-right">
-                <li>
+                <li><a routerLink="/profile">
                     <div class="inset">
                         <img [src]="profilepic">
                     </div>
+                </a>
                 </li>
                 <pre>    </pre>
                 <li>

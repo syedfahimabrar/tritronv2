@@ -21,9 +21,11 @@ const routes: Routes =[
     { path: 'problems',          component: ProblemsComponent },
     { path: 'register',          component: RegisterComponent },
     { path: 'login',          component: LoginComponent },
+    { path: 'profile', component:ProfileComponent},
+    { path: 'profile:id', component:ProfileComponent},
     { path: 'nucleoicons',          component: NucleoiconsComponent },
     { path: 'examples/landing',     component: LandingComponent },
-    { path: 'examples/profile',     component: ProfileComponent }
+    //{ path: 'examples/profile',     component: ProfileComponent }
 ];
 
 @NgModule({

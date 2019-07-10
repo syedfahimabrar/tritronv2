@@ -19,6 +19,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {LoginComponent} from './comps/login/login.component';
 import {AuthService} from './services/auth.service';
+import { ProfileComponent } from './comps/profile/profile.component';
+import { FooterComponent } from './comps/footer/footer.component';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -33,7 +35,9 @@ export function tokenGetter() {
         ProblemsComponent,
         ContestlistitemComponent,
         RegisterComponent,
-        LoginComponent
+        LoginComponent,
+        ProfileComponent,
+        FooterComponent
     ],
     imports: [
         BrowserAnimationsModule,
