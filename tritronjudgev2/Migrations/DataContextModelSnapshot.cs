@@ -133,6 +133,70 @@ namespace tritronAPI.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("tritronAPI.Model.Contest", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contest");
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.Problem", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuthorName");
+
+                    b.Property<string>("Contest_Id");
+
+                    b.Property<byte[]>("InputData");
+
+                    b.Property<int>("MemoryLimit");
+
+                    b.Property<byte[]>("OutputData");
+
+                    b.Property<string>("ProblemAuthorId");
+
+                    b.Property<string>("ProblemDescription");
+
+                    b.Property<string>("ProblemName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<short>("Score");
+
+                    b.Property<int?>("SourceCodeLimit");
+
+                    b.Property<string>("Tags");
+
+                    b.Property<int>("TimeLimit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Contest_Id");
+
+                    b.HasIndex("ProblemAuthorId");
+
+                    b.ToTable("Problems");
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.Submission", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ProblemId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProblemId");
+
+                    b.ToTable("Submission");
+                });
+
             modelBuilder.Entity("tritronAPI.Model.User", b =>
                 {
                     b.Property<string>("Id")
@@ -229,6 +293,24 @@ namespace tritronAPI.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.Problem", b =>
+                {
+                    b.HasOne("tritronAPI.Model.Contest", "Contest")
+                        .WithMany()
+                        .HasForeignKey("Contest_Id");
+
+                    b.HasOne("tritronAPI.Model.User", "ProblemAuthor")
+                        .WithMany()
+                        .HasForeignKey("ProblemAuthorId");
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.Submission", b =>
+                {
+                    b.HasOne("tritronAPI.Model.Problem")
+                        .WithMany("Submissions")
+                        .HasForeignKey("ProblemId");
                 });
 #pragma warning restore 612, 618
         }

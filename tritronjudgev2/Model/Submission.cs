@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace tritronAPI.Model
 {
-    public class Contest
+    public class Submission
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

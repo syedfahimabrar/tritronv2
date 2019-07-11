@@ -31,7 +31,7 @@ namespace tritronAPI.Persist
         public async Task<IdentityResult> Register(User user, string password)
         {
             var result = await this._userManager.CreateAsync(user, password);
-            if(result.Succeeded)
+            if (result.Succeeded)
                 await _userManager.AddToRoleAsync(user, "gen");
             return result;
         }
