@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PagedList;
 using tritronAPI.Data;
 
 namespace tritronAPI.Persist
@@ -44,7 +45,12 @@ namespace tritronAPI.Persist
         {
             return Context.Set<TEntity>().Where(predicate);
         }
-
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, int pageNumber, int pageSize)
+        {
+            return Context.Set<TEntity>()
+                .Where(predicate)
+                .ToPagedList(pageNumber, pageSize);
+        }
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             return Context.Set<TEntity>().SingleOrDefault(predicate);

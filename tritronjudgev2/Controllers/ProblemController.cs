@@ -23,9 +23,10 @@ namespace tritronAPI.Controllers
         }
         // GET: api/Problem
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get(int? pageNumber,int? pageSize)
         {
-            return new string[] { "value1", "value2" };
+
+            return Ok();
         }
 
         // GET: api/Problem/5
