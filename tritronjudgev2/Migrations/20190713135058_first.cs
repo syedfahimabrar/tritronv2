@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace tritronAPI.Migrations
 {
-    public partial class init : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,8 @@ namespace tritronAPI.Migrations
                 name: "Contest",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
                 {
@@ -176,7 +177,7 @@ namespace tritronAPI.Migrations
                     AuthorName = table.Column<string>(nullable: true),
                     ProblemDescription = table.Column<string>(nullable: true),
                     Tags = table.Column<string>(nullable: true),
-                    Contest_Id = table.Column<string>(nullable: true),
+                    Contest_Id = table.Column<int>(nullable: false),
                     Score = table.Column<short>(nullable: false),
                     TimeLimit = table.Column<int>(nullable: false),
                     MemoryLimit = table.Column<int>(nullable: false),
@@ -192,7 +193,7 @@ namespace tritronAPI.Migrations
                         column: x => x.Contest_Id,
                         principalTable: "Contest",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Problems_Users_ProblemAuthorId",
                         column: x => x.ProblemAuthorId,

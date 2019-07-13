@@ -15,6 +15,8 @@ namespace tritronAPI.Model
         [Required]
         [MaxLength(255)]
         public string ProblemName { get; set; }
+        [ForeignKey("User")]
+        public string ProblemAuthorId { get; set; }
         public virtual User ProblemAuthor { get; set; }
         public string AuthorName { get; set; }
         //public virtual List<Resources> Resourceses { get; set; }
@@ -25,7 +27,7 @@ namespace tritronAPI.Model
         public virtual Contest Contest { get; set; }
 
         [ForeignKey("Contest")]
-        public string Contest_Id { get; set; }
+        public int Contest_Id { get; set; }
         public short Score { get; set; }
 
         //Timelimit in miliseconds

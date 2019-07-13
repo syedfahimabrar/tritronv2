@@ -135,8 +135,9 @@ namespace tritronAPI.Migrations
 
             modelBuilder.Entity("tritronAPI.Model.Contest", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("Id");
 
@@ -151,7 +152,7 @@ namespace tritronAPI.Migrations
 
                     b.Property<string>("AuthorName");
 
-                    b.Property<string>("Contest_Id");
+                    b.Property<int>("Contest_Id");
 
                     b.Property<byte[]>("InputData");
 
@@ -300,7 +301,8 @@ namespace tritronAPI.Migrations
                 {
                     b.HasOne("tritronAPI.Model.Contest", "Contest")
                         .WithMany()
-                        .HasForeignKey("Contest_Id");
+                        .HasForeignKey("Contest_Id")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("tritronAPI.Model.User", "ProblemAuthor")
                         .WithMany()

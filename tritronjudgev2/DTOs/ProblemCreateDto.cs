@@ -13,17 +13,12 @@ namespace tritronAPI.DTOs
         [Required]
         [MaxLength(255)]
         public string ProblemName { get; set; }
-        public virtual User ProblemAuthor { get; set; }
+        public string ProblemAuthorId { get; set; }
         public string AuthorName { get; set; }
         //public virtual List<Resources> Resourceses { get; set; }
         public string ProblemDescription { get; set; }
-        public virtual ICollection<Submission> Submissions { get; set; }
         public string Tags { get; set; }
-        //public Guid Contest_Id { get; set; }
-        public virtual Contest Contest { get; set; }
-
-        [ForeignKey("Contest")]
-        public string Contest_Id { get; set; }
+        public int Contest_Id { get; set; }
         public short Score { get; set; }
 
         //Timelimit in miliseconds
