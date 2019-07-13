@@ -27,7 +27,7 @@ namespace tritronAPI.Model
         public virtual Contest Contest { get; set; }
 
         [ForeignKey("Contest")]
-        public int Contest_Id { get; set; }
+        public int? Contest_Id { get; set; }
         public short Score { get; set; }
 
         //Timelimit in miliseconds
@@ -38,11 +38,6 @@ namespace tritronAPI.Model
 
         //More than source code limit is not allowed
         public int? SourceCodeLimit { get; set; }
-        public byte[] InputData { get; set; }
-
-        /// <remarks>
-        /// Using byte[] (compressed with zip) to save database space.
-        /// </remarks>
-        public byte[] OutputData { get; set; }
+        public ICollection<TestFile> TestFiles { get; set; }
     }
 }

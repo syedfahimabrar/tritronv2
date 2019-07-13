@@ -21,6 +21,7 @@ import {LoginComponent} from './comps/login/login.component';
 import {AuthService} from './services/auth.service';
 import { ProfileComponent } from './comps/profile/profile.component';
 import { FooterComponent } from './comps/footer/footer.component';
+import { CreateproblemComponent } from './comps/problems/createproblem/createproblem.component';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -37,7 +38,8 @@ export function tokenGetter() {
         RegisterComponent,
         LoginComponent,
         ProfileComponent,
-        FooterComponent
+        FooterComponent,
+        CreateproblemComponent
     ],
     imports: [
         BrowserAnimationsModule,

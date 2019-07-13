@@ -39,10 +39,11 @@ namespace tritronAPI.Controllers
 
         // POST: api/Problem
         [HttpPost]
-        public void Post([FromBody] Problem problem)
+        public async Task<IActionResult> Post([FromBody] Problem problem)
         {
             _uow.ProblemRepository.Add(problem);
             _uow.Save();
+            return Ok(problem);
         }
 
         // PUT: api/Problem/5

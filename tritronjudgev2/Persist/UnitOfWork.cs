@@ -19,9 +19,9 @@ namespace tritronAPI.Persist
         
         private bool disposed = false;
 
-        public async void Save()
+        public void Save()
         {
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
         protected virtual void Dispose(bool disposing)
         {

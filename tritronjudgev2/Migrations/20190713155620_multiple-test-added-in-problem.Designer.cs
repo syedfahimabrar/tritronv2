@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tritronAPI.Data;
 
 namespace tritronAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190713155620_multiple-test-added-in-problem")]
+    partial class multipletestaddedinproblem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,11 +206,11 @@ namespace tritronAPI.Migrations
 
                     b.Property<byte[]>("OutputData");
 
-                    b.Property<int>("Problem_Id");
+                    b.Property<int?>("ProblemId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Problem_Id");
+                    b.HasIndex("ProblemId");
 
                     b.ToTable("TestFile");
                 });
@@ -333,8 +335,7 @@ namespace tritronAPI.Migrations
                 {
                     b.HasOne("tritronAPI.Model.Problem", "Problem")
                         .WithMany("TestFiles")
-                        .HasForeignKey("Problem_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProblemId");
                 });
 #pragma warning restore 612, 618
         }

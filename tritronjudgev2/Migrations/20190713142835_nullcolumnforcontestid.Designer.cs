@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tritronAPI.Data;
 
 namespace tritronAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190713142835_nullcolumnforcontestid")]
+    partial class nullcolumnforcontestid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,7 +156,11 @@ namespace tritronAPI.Migrations
 
                     b.Property<int?>("Contest_Id");
 
+                    b.Property<byte[]>("InputData");
+
                     b.Property<int>("MemoryLimit");
+
+                    b.Property<byte[]>("OutputData");
 
                     b.Property<string>("ProblemAuthorId");
 
@@ -193,24 +199,6 @@ namespace tritronAPI.Migrations
                     b.HasIndex("ProblemId");
 
                     b.ToTable("Submission");
-                });
-
-            modelBuilder.Entity("tritronAPI.Model.TestFile", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<byte[]>("InputData");
-
-                    b.Property<byte[]>("OutputData");
-
-                    b.Property<int>("Problem_Id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Problem_Id");
-
-                    b.ToTable("TestFile");
                 });
 
             modelBuilder.Entity("tritronAPI.Model.User", b =>
@@ -327,14 +315,6 @@ namespace tritronAPI.Migrations
                     b.HasOne("tritronAPI.Model.Problem")
                         .WithMany("Submissions")
                         .HasForeignKey("ProblemId");
-                });
-
-            modelBuilder.Entity("tritronAPI.Model.TestFile", b =>
-                {
-                    b.HasOne("tritronAPI.Model.Problem", "Problem")
-                        .WithMany("TestFiles")
-                        .HasForeignKey("Problem_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

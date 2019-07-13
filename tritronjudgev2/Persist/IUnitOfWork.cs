@@ -1,4 +1,6 @@
-﻿namespace tritronAPI.Persist
+﻿using System.Threading.Tasks;
+
+namespace tritronAPI.Persist
 {
     public interface IUnitOfWork
     {
