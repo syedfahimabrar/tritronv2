@@ -145,8 +145,9 @@ namespace tritronAPI.Migrations
 
             modelBuilder.Entity("tritronAPI.Model.Problem", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AuthorName");
 
@@ -188,7 +189,7 @@ namespace tritronAPI.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ProblemId");
+                    b.Property<int?>("ProblemId");
 
                     b.HasKey("Id");
 

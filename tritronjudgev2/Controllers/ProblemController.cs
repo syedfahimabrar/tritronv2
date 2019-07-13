@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using tritronAPI.Model;
 using tritronAPI.Persist;
 
 namespace tritronAPI.Controllers
@@ -25,8 +26,8 @@ namespace tritronAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(int? pageNumber,int? pageSize)
         {
-
-            return Ok();
+            var problems = _uow.ProblemRepository.Find(null, 1, 5);
+            return Ok(problems);
         }
 
         // GET: api/Problem/5
@@ -38,8 +39,10 @@ namespace tritronAPI.Controllers
 
         // POST: api/Problem
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Problem problem)
         {
+            _uow.ProblemRepository.Add(problem);
+            _uow.Save();
         }
 
         // PUT: api/Problem/5

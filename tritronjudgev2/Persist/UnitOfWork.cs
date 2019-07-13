@@ -13,7 +13,9 @@ namespace tritronAPI.Persist
         public UnitOfWork(DataContext context)
         {
             this._context = context;
+            this.ProblemRepository = new ProblemRepository(context);
         }
+        public IProblemRepository ProblemRepository { get; set; }
         
         private bool disposed = false;
 

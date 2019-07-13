@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace tritronAPI.Migrations
 {
-    public partial class ini : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -169,7 +169,8 @@ namespace tritronAPI.Migrations
                 name: "Problems",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProblemName = table.Column<string>(maxLength: 255, nullable: false),
                     ProblemAuthorId = table.Column<string>(nullable: true),
                     AuthorName = table.Column<string>(nullable: true),
@@ -205,7 +206,7 @@ namespace tritronAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    ProblemId = table.Column<string>(nullable: true)
+                    ProblemId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

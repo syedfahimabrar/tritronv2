@@ -4,14 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using tritronAPI.Model;
 
-namespace tritronAPI.Model
+namespace tritronAPI.DTOs
 {
-    public class Problem
+    public class ProblemCreateDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         [Required]
         [MaxLength(255)]
         public string ProblemName { get; set; }

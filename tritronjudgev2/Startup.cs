@@ -61,6 +61,7 @@ namespace tritronAPI
             services.AddCors();
             services.AddScoped<IAuth, Auth>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IProblemRepository, ProblemRepository>();
 
             //jwt authentication
             var key = Encoding.UTF8.GetBytes("Fahim123456789Fahim123456789Fahim123456789Fahim123456789Fahim123456789");
