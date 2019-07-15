@@ -21,7 +21,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     token:string;
     profilepic:string;
     constructor(public location: Location, private element: ElementRef,
-                public service: CommonService,private authService:AuthService,private helper: JwtHelperService) {
+                public service: CommonService,private authService:AuthService,
+                private helper: JwtHelperService) {
         this.sidebarVisible = false;
     }
     ngOnInit() {

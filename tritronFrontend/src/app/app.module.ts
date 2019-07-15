@@ -18,10 +18,11 @@ import { RegisterComponent } from './comps/register/register.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {LoginComponent} from './comps/login/login.component';
-import {AuthService} from './services/auth.service';
 import { ProfileComponent } from './comps/profile/profile.component';
 import { FooterComponent } from './comps/footer/footer.component';
-import { CreateproblemComponent } from './comps/problems/createproblem/createproblem.component';
+import { CreateproblemComponent } from './adminmodule/admin/Problem/createproblem/createproblem.component';
+import {AngularEditorModule} from '@kolkov/angular-editor';
+import {EscapeHtmlPipe} from './pipes/keep-html.pipe';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -39,6 +40,7 @@ export function tokenGetter() {
         LoginComponent,
         ProfileComponent,
         FooterComponent,
+        EscapeHtmlPipe,
         CreateproblemComponent
     ],
     imports: [
@@ -46,6 +48,7 @@ export function tokenGetter() {
         NgbModule.forRoot(),
         FormsModule,
         RouterModule,
+        AngularEditorModule,
         AppRoutingModule,
         ComponentsModule,
         ExamplesModule,

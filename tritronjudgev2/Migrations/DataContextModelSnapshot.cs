@@ -139,9 +139,24 @@ namespace tritronAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Name");
+
                     b.HasKey("Id");
 
                     b.ToTable("Contest");
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.ContestProgrammingLanguage", b =>
+                {
+                    b.Property<int>("Contest_id");
+
+                    b.Property<string>("ProgrammingLanguage_Id");
+
+                    b.HasKey("Contest_id", "ProgrammingLanguage_Id");
+
+                    b.HasIndex("ProgrammingLanguage_Id");
+
+                    b.ToTable("ContestProgrammingLanguage");
                 });
 
             modelBuilder.Entity("tritronAPI.Model.Problem", b =>
@@ -179,6 +194,18 @@ namespace tritronAPI.Migrations
                     b.HasIndex("ProblemAuthorId");
 
                     b.ToTable("Problems");
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.ProgrammingLanguage", b =>
+                {
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Extension");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("ProgrammingLanguage");
                 });
 
             modelBuilder.Entity("tritronAPI.Model.Submission", b =>
@@ -308,6 +335,19 @@ namespace tritronAPI.Migrations
                     b.HasOne("tritronAPI.Model.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.ContestProgrammingLanguage", b =>
+                {
+                    b.HasOne("tritronAPI.Model.Contest", "Contest")
+                        .WithMany("ContestProgrammingLanguages")
+                        .HasForeignKey("Contest_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("tritronAPI.Model.ProgrammingLanguage", "ProgrammingLanguage")
+                        .WithMany("ContestProgrammingLanguages")
+                        .HasForeignKey("ProgrammingLanguage_Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -1,22 +1,30 @@
-<div class="wrapper">
+<div class="wrapper nice">
     <div class="section section-tabs">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 ml-auto col-xl-12 mr-auto">
-                    <p class="category">Tabs with Icons on Card</p>
+                    <p class="category">Create a new problem</p>
                     <!-- Nav tabs -->
 
                     <div class="card">
                         <div class="nav-tabs-navigation">
                             <div class="nav-tabs-wrapper">
-                                <ngb-tabset [justify]="'center'" class="text-center">
+                                <ngb-tabset [destroyOnHide]="false" [justify]="'center'" class="text-center">
                                     <ngb-tab>
                                         <ng-template ngbTabTitle>
-                                            <i class="now-ui-icons objects_umbrella-13"></i> Home
+                                            <i class="now-ui-icons objects_umbrella-13"></i> Details
                                         </ng-template>
                                         <ng-template ngbTabContent>
-                                            <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                                            <h4>Basic information to describe the challenge</h4>
+                                            <form #problemForm = "ngForm"  (ngSubmit)="save()" class="form" >
+                                                <angular-editor [placeholder]="'Enter text here...'"
+                                                              name = "problemDescription"  [(ngModel)]="problemDescription">
+
+                                                </angular-editor>
+
+                                            </form>
                                         </ng-template>
+                                        <h1>hello</h1>
                                     </ngb-tab>
                                     <ngb-tab>
                                         <ng-template ngbTabTitle>
@@ -49,9 +57,15 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                <ngb-panel title="Simple">
+                    <ng-template ngbPanelContent>
+                        <div [innerHTML]="problemDescription |keepHtml:'html' "></div>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
         </div>
     </div>
-
 </div>
+

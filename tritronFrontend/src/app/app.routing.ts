@@ -12,7 +12,7 @@ import {ContestsComponent} from './comps/contests/contests.component';
 import {ProblemsComponent} from './comps/problems/problems.component';
 import {RegisterComponent} from './comps/register/register.component';
 import {LoginComponent} from './comps/login/login.component';
-import {CreateproblemComponent} from './comps/problems/createproblem/createproblem.component';
+import {CreateproblemComponent} from './adminmodule/admin/Problem/createproblem/createproblem.component';
 
 const routes: Routes =[
     // { path: '', redirectTo: 'index', pathMatch: 'full' },

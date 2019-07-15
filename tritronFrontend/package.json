@@ -24,6 +24,8 @@
     "@angular/platform-server": "7.2.9",
     "@angular/router": "7.2.9",
     "@auth0/angular-jwt": "^2.1.1",
+    "@ckeditor/ckeditor5-angular": "^1.1.0",
+    "@kolkov/angular-editor": "^0.16.2",
     "@ng-bootstrap/ng-bootstrap": "4.1.0",
     "ajv": "6.10.0",
     "ajv-keywords": "3.4.0",

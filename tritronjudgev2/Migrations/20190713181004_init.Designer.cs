@@ -10,8 +10,8 @@ using tritronAPI.Data;
 namespace tritronAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190713155828_foreign-problem-key-added-in-testfiles")]
-    partial class foreignproblemkeyaddedintestfiles
+    [Migration("20190713181004_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -141,7 +141,11 @@ namespace tritronAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Name");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("Contest");
                 });
@@ -181,6 +185,26 @@ namespace tritronAPI.Migrations
                     b.HasIndex("ProblemAuthorId");
 
                     b.ToTable("Problems");
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.ProgrammingLanguage", b =>
+                {
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ContestId");
+
+                    b.Property<int?>("ContestId1");
+
+                    b.Property<string>("Extension");
+
+                    b.HasKey("Name");
+
+                    b.HasIndex("ContestId");
+
+                    b.HasIndex("ContestId1");
+
+                    b.ToTable("ProgrammingLanguage");
                 });
 
             modelBuilder.Entity("tritronAPI.Model.Submission", b =>
@@ -313,6 +337,13 @@ namespace tritronAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("tritronAPI.Model.Contest", b =>
+                {
+                    b.HasOne("tritronAPI.Model.ProgrammingLanguage")
+                        .WithMany()
+                        .HasForeignKey("Name");
+                });
+
             modelBuilder.Entity("tritronAPI.Model.Problem", b =>
                 {
                     b.HasOne("tritronAPI.Model.Contest", "Contest")
@@ -322,6 +353,17 @@ namespace tritronAPI.Migrations
                     b.HasOne("tritronAPI.Model.User", "ProblemAuthor")
                         .WithMany()
                         .HasForeignKey("ProblemAuthorId");
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.ProgrammingLanguage", b =>
+                {
+                    b.HasOne("tritronAPI.Model.Contest")
+                        .WithMany("AllowedLanguages")
+                        .HasForeignKey("ContestId");
+
+                    b.HasOne("tritronAPI.Model.Contest")
+                        .WithMany()
+                        .HasForeignKey("ContestId1");
                 });
 
             modelBuilder.Entity("tritronAPI.Model.Submission", b =>
