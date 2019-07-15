@@ -12,9 +12,9 @@ import {ContestsComponent} from './comps/contests/contests.component';
 import {ProblemsComponent} from './comps/problems/problems.component';
 import {RegisterComponent} from './comps/register/register.component';
 import {LoginComponent} from './comps/login/login.component';
-import {CreateproblemComponent} from './adminmodule/admin/Problem/createproblem/createproblem.component';
+import {CreateproblemComponent} from './admin/problem/createproblem/createproblem.component';
 
-const routes: Routes =[
+const routes: Routes = [
     // { path: '', redirectTo: 'index', pathMatch: 'full' },
     { path: '', component: HomeComponent},
     { path: 'contests' , component: ContestsComponent},
@@ -22,17 +22,12 @@ const routes: Routes =[
     { path: 'problems',          component: ProblemsComponent },
     { path: 'register',          component: RegisterComponent },
     { path: 'login',          component: LoginComponent },
-    { path: 'profile', component:ProfileComponent},
-    { path: 'profile:id', component:ProfileComponent},
+    { path: 'profile', component: ProfileComponent},
+    { path: 'profile:id', component: ProfileComponent},
     { path: 'nucleoicons',          component: NucleoiconsComponent },
     { path: 'examples/landing',     component: LandingComponent },
-    //{ path: 'examples/profile',     component: ProfileComponent }
-    {
-        path: 'admin',
-        children: [
-            { path:'createproblem',  component:CreateproblemComponent}
-        ]
-    }
+    // { path: 'examples/profile',     component: ProfileComponent }
+    { path: 'admin', loadChildren: './admin/admin.module'}
 ];
 
 @NgModule({

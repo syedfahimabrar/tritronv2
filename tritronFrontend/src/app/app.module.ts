@@ -20,7 +20,6 @@ import {ToastrModule} from 'ngx-toastr';
 import {LoginComponent} from './comps/login/login.component';
 import { ProfileComponent } from './comps/profile/profile.component';
 import { FooterComponent } from './comps/footer/footer.component';
-import { CreateproblemComponent } from './adminmodule/admin/Problem/createproblem/createproblem.component';
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import {EscapeHtmlPipe} from './pipes/keep-html.pipe';
 
@@ -40,8 +39,7 @@ export function tokenGetter() {
         LoginComponent,
         ProfileComponent,
         FooterComponent,
-        EscapeHtmlPipe,
-        CreateproblemComponent
+        EscapeHtmlPipe
     ],
     imports: [
         BrowserAnimationsModule,
@@ -64,6 +62,7 @@ export function tokenGetter() {
             }
         })
     ],
+    exports:[NgbModule],
     providers: [],
     bootstrap: [AppComponent]
 })

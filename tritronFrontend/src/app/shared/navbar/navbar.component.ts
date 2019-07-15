@@ -31,8 +31,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
         this.subscription =  this.service.isTrans.subscribe((isTrans) => { this.isTrans = isTrans;});
         this.tokenSubscription = this.authService.tok.subscribe((tok) => {this.token = tok;console.log("triggered");});
+        this.timer(500)
         this.profilepicsubscription = this.authService.propic.subscribe((pic)=>{this.profilepic = pic});
-        if(this.profilepic == null)
+        if(this.profilepic == null && this.token)
             this.profilepic = this.helper.decodeToken(this.token).profilepic;
         //console.log(this.router.url);
     }

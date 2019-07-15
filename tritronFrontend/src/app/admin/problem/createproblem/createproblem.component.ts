@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Largestrings} from '../../../../largestrings/largestrings';
+import {Largestrings} from '../../../largestrings/largestrings';
 
 @Component({
   selector: 'app-createproblem',
