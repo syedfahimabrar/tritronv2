@@ -32,7 +32,10 @@ export class AuthService {
     this.token.next(token);
     this.profilepic.next(this.jwthelper.decodeToken(token).profilepic);
     this.tst.success('Welcome '+this.jwthelper.decodeToken(token).unique_name+'!!','Welcome');
-    this.router.navigateByUrl('/');
+    if(this.jwthelper.decodeToken(token).role === 'admin')
+      this.router.navigateByUrl('/admin/problem/create');
+    else
+      this.router.navigateByUrl('/');
   }
   logout(){
     localStorage.removeItem('token');

@@ -9,17 +9,14 @@ import { ProfileComponent } from './examples/profile/profile.component';
 import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.component';
 import {HomeComponent} from './comps/home/home.component';
 import {ContestsComponent} from './comps/contests/contests.component';
-import {ProblemsComponent} from './comps/problems/problems.component';
 import {RegisterComponent} from './comps/register/register.component';
 import {LoginComponent} from './comps/login/login.component';
-import {CreateproblemComponent} from './admin/problem/createproblem/createproblem.component';
 
 const routes: Routes = [
     // { path: '', redirectTo: 'index', pathMatch: 'full' },
     { path: '', component: HomeComponent},
     { path: 'contests' , component: ContestsComponent},
     { path: 'index',                component: ComponentsComponent },
-    { path: 'problems',          component: ProblemsComponent },
     { path: 'register',          component: RegisterComponent },
     { path: 'login',          component: LoginComponent },
     { path: 'profile', component: ProfileComponent},
@@ -27,7 +24,8 @@ const routes: Routes = [
     { path: 'nucleoicons',          component: NucleoiconsComponent },
     { path: 'examples/landing',     component: LandingComponent },
     // { path: 'examples/profile',     component: ProfileComponent }
-    { path: 'admin', loadChildren: './admin/admin.module'}
+    { path: 'admin', loadChildren: './admin/admin.module'},
+    { path: 'problem', loadChildren: './problem/problem.module'}
 ];
 
 @NgModule({

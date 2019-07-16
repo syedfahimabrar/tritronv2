@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './comps/home/home.component';
 import { ContestsComponent } from './comps/contests/contests.component';
-import { ProblemsComponent } from './comps/problems/problems.component';
 import { ContestlistitemComponent } from './comps/contests/contestlistitem/contestlistitem.component';
 import { RegisterComponent } from './comps/register/register.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -33,13 +32,11 @@ export function tokenGetter() {
         NavbarComponent,
         HomeComponent,
         ContestsComponent,
-        ProblemsComponent,
         ContestlistitemComponent,
         RegisterComponent,
         LoginComponent,
         ProfileComponent,
-        FooterComponent,
-        EscapeHtmlPipe
+        FooterComponent
     ],
     imports: [
         BrowserAnimationsModule,
