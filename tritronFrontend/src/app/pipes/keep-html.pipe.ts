@@ -6,8 +6,6 @@ export class EscapeHtmlPipe implements PipeTransform {
     constructor(protected sanitizer: DomSanitizer) {}
 
     public transform(value: any, type: string): SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl {
-        console.log('html is '+this.sanitizer.bypassSecurityTrustHtml(value));
-        console.log('style is '+this.sanitizer.bypassSecurityTrustStyle(value))
         switch (type) {
             case 'html': return this.sanitizer.bypassSecurityTrustHtml(value);
             case 'style': return this.sanitizer.bypassSecurityTrustStyle(value);

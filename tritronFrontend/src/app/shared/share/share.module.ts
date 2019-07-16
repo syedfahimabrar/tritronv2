@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
-import {AngularEditorModule} from '@kolkov/angular-editor';
 import {EscapeHtmlPipe} from '../../pipes/keep-html.pipe';
+import {CovalentCodeEditorModule} from '@covalent/code-editor';
 
 @NgModule({
   declarations: [
@@ -12,8 +12,9 @@ import {EscapeHtmlPipe} from '../../pipes/keep-html.pipe';
   imports: [
     CommonModule,
       NgbModule,
-      FormsModule
+      FormsModule,
+      CovalentCodeEditorModule
   ],
-  exports: [CommonModule,NgbModule,FormsModule,EscapeHtmlPipe]
+  exports: [CommonModule,NgbModule,FormsModule,EscapeHtmlPipe,CovalentCodeEditorModule]
 })
 export class ShareModule { }
