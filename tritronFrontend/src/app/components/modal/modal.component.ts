@@ -5,9 +5,12 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   selector: 'ngbd-modal-component',
   templateUrl: './modal.component.html'
 })
+
 export class NgbdModalBasic {
     closeResult: string;
-
+    @Input() message: string;
+    @Input() Title: string;
+    @Input() ButtonName: string;
     constructor(private modalService: NgbModal) {}
 
     open(content, type, modalDimension) {

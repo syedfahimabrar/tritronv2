@@ -11,6 +11,7 @@ import {HomeComponent} from './comps/home/home.component';
 import {ContestsComponent} from './comps/contests/contests.component';
 import {RegisterComponent} from './comps/register/register.component';
 import {LoginComponent} from './comps/login/login.component';
+import {NgbdModalBasic} from './components/modal/modal.component';
 
 const routes: Routes = [
     // { path: '', redirectTo: 'index', pathMatch: 'full' },

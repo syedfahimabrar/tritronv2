@@ -6,6 +6,7 @@ import {CreateproblemComponent} from './problem/createproblem/createproblem.comp
 import {ShareModule} from '../shared/share/share.module';
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import { EditproblemComponent } from './problem/editproblem/editproblem.component';
+import {ComponentsModule} from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { EditproblemComponent } from './problem/editproblem/editproblem.componen
     CommonModule,
     AdminRoutingModule,
       ShareModule,
-    AngularEditorModule
+    AngularEditorModule,
+      ComponentsModule
+
   ]
 })
 export default class AdminModule { }

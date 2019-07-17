@@ -36,7 +36,7 @@ export function tokenGetter() {
         RegisterComponent,
         LoginComponent,
         ProfileComponent,
-        FooterComponent
+        FooterComponent,
     ],
     imports: [
         BrowserAnimationsModule,

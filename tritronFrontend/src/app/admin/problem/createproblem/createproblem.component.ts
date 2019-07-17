@@ -9,6 +9,8 @@ import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Val
 })
 export class CreateproblemComponent implements OnInit {
 
+  infiletext=[];
+  outfiletext=[];
   totaltest;
   problemCreateForm:FormGroup;
   problemDescription:string;
@@ -30,18 +32,36 @@ export class CreateproblemComponent implements OnInit {
     });*/
   }
 
-  filetext:string;
   ngOnInit() {
-      console.log(this.problemDescription);
       this.totaltest = 5;
   }
   save(){
-
+    console.log('saved');
+    console.log((<FormArray>this.problemCreateForm.get('Tests')).at(0).value);
   }
-  fileUpload(event) {
+  fileUpload(event,i,ty:string) {
     var reader = new FileReader();
-    reader.readAsText(event.srcElement.files[0]);
-
+    var m = reader.readAsText(event.srcElement.files[0]);
+    var me = this;
+    reader.onload = function () {
+      console.log(reader.result);
+      if(ty==='in')
+        me.infiletext[i] = reader.result;
+      else
+        me.outfiletext[i] = reader.result;
+    }
+  }
+  removeSkillButtonClick(i){
+    console.log('clicked');
+    (<FormArray>this.problemCreateForm.get('Tests')).removeAt(i);
+    console.log(this.infiletext);
+    console.log(this.outfiletext);
+    if(this.infiletext[i] != 'undefined')
+      this.infiletext.splice(i,1);
+    if(this.outfiletext[i] != 'undefined')
+      this.outfiletext.splice(i,1);
+    console.log(this.infiletext);
+    console.log(this.outfiletext);
   }
   addsubform(){
     return this.fb.group({
