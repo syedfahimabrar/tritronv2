@@ -19,5 +19,5 @@ steps:
     pushd tritronFrontend
     npm install -g @angular/cli@7.3.8
     npm install
-    ng build --prod
+    ng build 
   displayName: 'npm install and build'
