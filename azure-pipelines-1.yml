@@ -16,7 +16,7 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    pushd tritronjudgev2/tritronFrontend
+    pushd tritronFrontend
     npm install -g @angular/cli
     npm install
     ng build --prod
