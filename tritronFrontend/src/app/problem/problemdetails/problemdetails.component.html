@@ -17,11 +17,19 @@
                                 </ng-template>
                             </ngb-panel>
                             //vs,vs-dark,hc-black
-                            <ngb-panel title="click to unfold Submission Panel" [disabled]="false">
+                            <ngb-panel title="click to unfold Submission Panel" [disabled]="!loggedin">
                                 <ng-template ngbPanelContent>
-                                    <td-code-editor style="height: 500px" theme="vs-dark" flex language="cpp">
+                                    <form #loginForm = "ngForm"  (ngSubmit)="login(loginForm)" class="form" >
+                                        <label for="language">Select Language</label>
+                                        <select class="form-control" >
+                                            <option *ngFor="let lan of language">{{lan}}</option>
+                                        </select>
+                                    <br>
+                                        <td-code-editor style="height: 500px"  theme="vs-dark" flex language="csharp">
 
-                                    </td-code-editor>
+                                        </td-code-editor>
+
+                                    </form>
                                 </ng-template>
                             </ngb-panel>
                         </ngb-accordion>

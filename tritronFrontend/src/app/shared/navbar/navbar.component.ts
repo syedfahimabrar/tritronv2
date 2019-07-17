@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     public subscription: Subscription;
     public tokenSubscription:Subscription;
     public profilepicsubscription;
+    isloggedin:boolean;
     isTrans;
     token:string;
     profilepic:string;
@@ -24,18 +25,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 public service: CommonService,private authService:AuthService,
                 private helper: JwtHelperService) {
         this.sidebarVisible = false;
+        this.authService.isloggedin.subscribe(value => this.isloggedin = value);
     }
     ngOnInit() {
         this.isTrans = false;
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
         this.subscription =  this.service.isTrans.subscribe((isTrans) => { this.isTrans = isTrans;});
-        this.tokenSubscription = this.authService.tok.subscribe((tok) => {this.token = tok;console.log("triggered");});
-        this.timer(500)
-        this.profilepicsubscription = this.authService.propic.subscribe((pic)=>{this.profilepic = pic});
+        this.tokenSubscription = this.authService.token.subscribe((tok) => {this.token = tok;console.log("triggered");});
+        this.timer(500);
+        this.profilepicsubscription = this.authService.profilepic.subscribe((pic)=>{this.profilepic = pic});
         if(this.profilepic == null && this.token)
             this.profilepic = this.helper.decodeToken(this.token).profilepic;
-        //console.log(this.router.url);
+        console.log(this.isloggedin);
     }
     timer(ms) {
         return new Promise(res => setTimeout(res, ms));

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {BehaviorSubject, ReplaySubject} from 'rxjs';
+import {BehaviorSubject, ReplaySubject, Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 export interface LoginResponse {
@@ -15,12 +15,18 @@ export interface LoginResponse {
 })
 export class AuthService {
   baseUrl = "https://localhost:44311/api/auth/";
-  token = new ReplaySubject<string>();
-  tok = this.token.asObservable();
-  profilepic = new ReplaySubject<string>();
-  propic = this.profilepic.asObservable();
+  token = new BehaviorSubject<string>(null);
+  profilepic = new BehaviorSubject<string>(null);
+  isloggedin = new BehaviorSubject<boolean>(null);
+  isAdmin = new BehaviorSubject<boolean>(null);
   constructor(private http:HttpClient,private jwthelper:JwtHelperService,private router:Router,private tst:ToastrService) {
     this.token.next(localStorage.getItem('token'));
+    if(!this.isExpired(localStorage.getItem('token')))
+      this.isloggedin.next(true);
+    if(!this.isExpired(localStorage.getItem('token')))
+      this.profilepic.next(jwthelper.decodeToken(localStorage.getItem('token')).profilepic);
+    if(!this.isExpired(localStorage.getItem('token')))
+      this.isAdmin.next(jwthelper.decodeToken(localStorage.getItem('token')).role);
   }
   register(model:any){
     return this.http.post(this.baseUrl+'register', model);
@@ -32,6 +38,8 @@ export class AuthService {
     this.token.next(token);
     this.profilepic.next(this.jwthelper.decodeToken(token).profilepic);
     this.tst.success('Welcome '+this.jwthelper.decodeToken(token).unique_name+'!!','Welcome');
+    this.isloggedin.next(true);
+    this.isAdmin.next(this.jwthelper.decodeToken(localStorage.getItem('token')).role);
     if(this.jwthelper.decodeToken(token).role === 'admin')
       this.router.navigateByUrl('/admin/problem/create');
     else
@@ -41,6 +49,7 @@ export class AuthService {
     localStorage.removeItem('token');
     this.token.next(null);
     this.profilepic.next(null);
+    this.isloggedin.next(false);
   }
   isExpired(to:string){
     console.log("token is "+to);

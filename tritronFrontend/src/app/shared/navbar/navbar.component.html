@@ -63,7 +63,7 @@
                   </a>
                 </li>
             </ul>
-            <ul *ngIf="(token != null)" class="nav navbar-nav navbar-right">
+            <ul *ngIf="(isloggedin)" class="nav navbar-nav navbar-right">
                 <li><a routerLink="/profile">
                     <div class="inset">
                         <img [src]="profilepic">
@@ -76,7 +76,7 @@
                 </li>
 
             </ul>
-            <ul *ngIf="(token == null)" class="nav navbar-nav navbar-right">
+            <ul *ngIf="(!isloggedin)" class="nav navbar-nav navbar-right">
                 <li>
                     <button routerLink="/login" class="btn btn-warning">LogIn</button>
                 </li>

@@ -6,56 +6,107 @@
                     <p class="category">Create a new problem</p>
                     <!-- Nav tabs -->
 
-                    <div class="card">
-                        <div class="nav-tabs-navigation">
-                            <div class="nav-tabs-wrapper">
-                                <ngb-tabset [destroyOnHide]="false" [justify]="'center'" class="text-center">
-                                    <ngb-tab>
-                                        <ng-template ngbTabTitle>
-                                            <i class="now-ui-icons objects_umbrella-13"></i> Details
-                                        </ng-template>
-                                        <ng-template ngbTabContent>
-                                            <h4>Basic information to describe the challenge</h4>
-                                            <form #problemForm = "ngForm"  (ngSubmit)="save()" class="form" >
+                    <form [formGroup]="problemCreateForm" (ngSubmit)="save()" class="form">
+                        <div class="card">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <ngb-tabset [destroyOnHide]="false" [justify]="'center'" class="text-center">
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <i class="now-ui-icons objects_umbrella-13"></i> Description
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <h4>Basic information to describe the challenge</h4>
+                                                <div class="form-group"
+                                                     [ngClass]="{'has-error':problemCreateForm.get('problemName').errors
+                                                 && (problemCreateForm.get('problemName').touched ||
+                                                    problemCreateForm.get('problemName').dirty
+                                                 )
+                                                 }">
+                                                    <label class="col-sm-5 control-label" for="problemName">Problem
+                                                        Name: </label>
+                                                    <div class="col-sm-8">
+                                                        <input id="problemName" formControlName="problemName"
+                                                               class="form-control">
+                                                    </div>
+
+                                                </div>
+
+
                                                 <angular-editor [placeholder]="'Enter text here...'"
-                                                              name = "problemDescription"  [(ngModel)]="problemDescription">
+                                                                formControlName="problemDescription"
+                                                                id="problemDescription">
 
                                                 </angular-editor>
 
-                                            </form>
-                                        </ng-template>
-                                        <h1>hello</h1>
-                                    </ngb-tab>
-                                    <ngb-tab>
-                                        <ng-template ngbTabTitle>
-                                            <i class="now-ui-icons shopping_cart-simple"></i> Profile
-                                        </ng-template>
-                                        <ng-template ngbTabContent>
-                                            <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. </p>
-                                        </ng-template>
-                                    </ngb-tab>
-                                    <ngb-tab>
-                                        <ng-template ngbTabTitle>
-                                            <i class="now-ui-icons shopping_shop"></i> Messages
-                                        </ng-template>
-                                        <ng-template ngbTabContent>
-                                            <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
-                                        </ng-template>
-                                    </ngb-tab>
-                                    <ngb-tab>
-                                        <ng-template ngbTabTitle>
-                                            <i class="now-ui-icons ui-2_settings-90"></i> Settings
-                                        </ng-template>
-                                        <ng-template ngbTabContent>
-                                            <p>
-                                                "I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at."
-                                            </p>
-                                        </ng-template>
-                                    </ngb-tab>
-                                </ngb-tabset>
+
+                                            </ng-template>
+                                            <h1>hello</h1>
+                                        </ngb-tab>
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <i class="now-ui-icons shopping_cart-simple"></i> TestFiles
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <div class="col-md-offset-2 col-md-4">
+                                                    <button type="button" class="btn btn-primary" (click)="addtest()">
+                                                        Add Skill
+                                                    </button>
+                                                </div>
+                                                <div formArrayName="Tests" *ngFor="let test of problemCreateForm.get('Tests').controls; let i= index; ">
+                                                    <div [formGroupName]="i" class="form-group">
+                                                        <label for="inputTest" class="now-ui-icons files_paper"></label>
+                                                        <input id="inputTest"
+                                                               formControlName="inputTest"
+                                                               type="file"
+                                                               accept=".txt"
+                                                               class="fileinput-new"
+                                                               (change)="fileUpload($event)">
+                                                        <label for="outputTest" class="now-ui-icons files_paper"></label>
+                                                        <input id="outputTest"
+                                                               formControlName="outputTest"
+                                                               type="file"
+                                                               accept=".txt"
+                                                               class="fileinput-new"
+                                                               (change)="fileUpload($event)">
+                                                    </div>
+                                                </div>
+
+
+                                            </ng-template>
+                                        </ngb-tab>
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <i class="now-ui-icons shopping_shop"></i> Messages
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <p>I think that’s a responsibility that I have, to push possibilities,
+                                                    to show people, this is the level that things could be at. So when
+                                                    you get something that has the name Kanye West on it, it’s supposed
+                                                    to be pushing the furthest possibilities. I will be the leader of a
+                                                    company that ends up being worth billions of dollars, because I got
+                                                    the answers. I understand culture. I am the nucleus.</p>
+                                            </ng-template>
+                                        </ngb-tab>
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <i class="now-ui-icons ui-2_settings-90"></i> Settings
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <p>
+                                                    "I will be the leader of a company that ends up being worth billions
+                                                    of dollars, because I got the answers. I understand culture. I am
+                                                    the nucleus. I think that’s a responsibility that I have, to push
+                                                    possibilities, to show people, this is the level that things could
+                                                    be at."
+                                                </p>
+                                            </ng-template>
+                                        </ngb-tab>
+                                    </ngb-tabset>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">

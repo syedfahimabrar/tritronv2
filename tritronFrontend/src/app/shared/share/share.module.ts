@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EscapeHtmlPipe} from '../../pipes/keep-html.pipe';
 import {CovalentCodeEditorModule} from '@covalent/code-editor';
 
@@ -13,8 +13,9 @@ import {CovalentCodeEditorModule} from '@covalent/code-editor';
     CommonModule,
       NgbModule,
       FormsModule,
-      CovalentCodeEditorModule
+      CovalentCodeEditorModule,
+    ReactiveFormsModule
   ],
-  exports: [CommonModule,NgbModule,FormsModule,EscapeHtmlPipe,CovalentCodeEditorModule]
+  exports: [CommonModule,NgbModule,FormsModule,EscapeHtmlPipe,CovalentCodeEditorModule,ReactiveFormsModule]
 })
 export class ShareModule { }
