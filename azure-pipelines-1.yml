@@ -14,6 +14,7 @@ steps:
     pushd tritronFrontend
     npm install
     npm run build
+    ng build
   displayName: 'npm install and build'
 
 - task: PublishPipelineArtifact@0
