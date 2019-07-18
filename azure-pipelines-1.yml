@@ -11,20 +11,12 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    pushd tritronFrontend
+    pushd tritronFrontend/dist
     npm install -g @angular/cli@7.3.8
     npm install
     npm run build
     ng build --prod
   displayName: 'npm install and build'
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: 'tritronFrontend'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
     
 - task: PublishBuildArtifacts@1
   inputs:
