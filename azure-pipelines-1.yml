@@ -11,6 +11,7 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    pushd tritronFrontend
     npm install
     npm run build
   displayName: 'npm install and build'
