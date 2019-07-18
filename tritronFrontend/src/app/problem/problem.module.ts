@@ -15,4 +15,4 @@ import { ProblemsComponent } from './problems/problems.component';
     ProblemRoutingModule
   ]
 })
-export default class ProblemModule { }
+export class ProblemModule { }
