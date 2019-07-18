@@ -11,13 +11,12 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    pushd tritronFrontend
     npm install
     npm run build
   displayName: 'npm install and build'
-  workingDirectory: '$(Build.SourcesDirectory)'
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@0
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/dist'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    artifactName: 'angular'
+    targetPath: 'tritronFrontend/dist'
