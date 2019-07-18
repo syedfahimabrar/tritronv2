@@ -21,8 +21,17 @@ steps:
     npm install
     ng build 
   displayName: 'npm install and build'
-- task: Npm@1
+
+- task: ArchiveFiles@2
   inputs:
-    command: publish
-    publishRegistry: useFeed
-    publishFeed: feedName
+    rootFolderOrFile: 'tritronfrontend/dist'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
