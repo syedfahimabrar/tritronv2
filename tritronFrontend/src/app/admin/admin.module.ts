@@ -21,4 +21,4 @@ import {ComponentsModule} from '../components/components.module';
       ComponentsModule
   ]
 })
-export default class AdminModule { }
+export class AdminModule { }

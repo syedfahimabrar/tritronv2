@@ -25,8 +25,8 @@ const routes: Routes = [
     { path: 'nucleoicons',          component: NucleoiconsComponent },
     { path: 'examples/landing',     component: LandingComponent },
     // { path: 'examples/profile',     component: ProfileComponent }
-    { path: 'admin', loadChildren: './admin/admin.module'},
-    { path: 'problem', loadChildren: './problem/problem.module'}
+    { path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
+    { path: 'problem', loadChildren: './problem/problem.module#ProblemModule'}
 ];
 
 @NgModule({
