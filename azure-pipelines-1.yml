@@ -21,9 +21,8 @@ steps:
     npm install
     ng build 
   displayName: 'npm install and build'
-
-- task: PublishBuildArtifacts@1
+- task: Npm@1
   inputs:
-    PathtoPublish: '/dist'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    command: publish
+    publishRegistry: useFeed
+    publishFeed: feedName
