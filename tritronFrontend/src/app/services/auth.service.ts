@@ -4,6 +4,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {BehaviorSubject, ReplaySubject, Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {environment} from '../../environments/environment';
 export interface LoginResponse {
   succeeded: boolean;
   token: string;
@@ -14,7 +15,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = "https://localhost:44311/api/auth/";
+  baseUrl = environment.apiUrl+"api/auth/";
   token = new BehaviorSubject<string>(null);
   profilepic = new BehaviorSubject<string>(null);
   isloggedin = new BehaviorSubject<boolean>(null);
