@@ -11,6 +11,10 @@ import {async} from 'q';
 })
 export class RegisterComponent implements OnInit {
 
+  data : Date = new Date();
+  focus;
+  focus1;
+
   model: UserRegisterModel;
   constructor(private authservice: AuthService,private toastservice:ToastrService) {
     this.model = new UserRegisterModel();

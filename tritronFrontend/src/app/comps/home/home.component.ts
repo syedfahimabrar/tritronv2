@@ -9,6 +9,10 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  data : Date = new Date();
+  focus;
+  focus1;
+
   constructor(private service:CommonService) {
     this.service.changeIsTrans(true);
   }

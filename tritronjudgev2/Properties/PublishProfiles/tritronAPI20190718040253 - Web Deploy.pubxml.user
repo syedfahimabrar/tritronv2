@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAVtX2wjmfLUevGYLaToIhdQAAAAACAAAAAAAQZgAAAAEAACAAAABCtCy24Geq4eo968IqFnRgAZyicjPXY8/fmKlmmB0/rQAAAAAOgAAAAAIAACAAAACLGoNkJGYsGnCAmdbjnl76UjH11U058+urTPXBmz5l2YAAAACFjkPYHV2zMZFPzV74mWILZykf0OxxaBRPCf6HJSgUtwNplMV5RQGzZ06Pw4nZW1gEbHOUZLniOKyqePxZDQQ+XPnWYEGppbap4dFx+XqEiM880t4dTfxApLx8nn1UBQWuUmRjX/BHz9IaUGPU1oDT6SlVS2DEgtkADEnCNnOiJEAAAAAqRl7eTPoQtG9EM7Ngrhr9rVKtO9m0JiHW82nGosM/WikysRb2LtUzlG0oNABUs2EiyXZnYzBHjmMXPUgMePDl</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=tcp:tritronapi20190718040253dbserver.database.windows.net,1433%3bInitial Catalog=tritronAPI20190718040253_db%3bUser Id=lazyfahim%40tritronapi20190718040253dbserver%3bPassword=Fahim%40123</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="tritronAPI.Data.DataContext">
+      <Value>Data Source=tcp:tritronapi20190718040253dbserver.database.windows.net,1433%3bInitial Catalog=tritronAPI20190718040253_db%3bUser Id=lazyfahim%40tritronapi20190718040253dbserver%3bPassword=Fahim%40123</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

@@ -12,6 +12,10 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class LoginComponent implements OnInit {
 
+  data : Date = new Date();
+  focus;
+  focus1;
+
   model: UserRegisterModel;
   constructor(private authservice: AuthService,private toastservice:ToastrService,private helper: JwtHelperService) {
     this.model = new UserRegisterModel();

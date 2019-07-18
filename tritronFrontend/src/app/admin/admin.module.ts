@@ -19,7 +19,6 @@ import {ComponentsModule} from '../components/components.module';
       ShareModule,
     AngularEditorModule,
       ComponentsModule
-
   ]
 })
 export default class AdminModule { }
