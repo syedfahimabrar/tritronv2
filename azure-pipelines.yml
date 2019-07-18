@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Build'
 
 steps:
 - script: dotnet build tritronjudgev2/tritronAPI.csproj --configuration $(buildConfiguration)
