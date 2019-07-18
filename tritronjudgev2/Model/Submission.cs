@@ -12,5 +12,8 @@ namespace tritronAPI.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
+        public User User { get; set; }
+        [ForeignKey("User")]
+        public string User_Id { get; set; }
     }
 }
