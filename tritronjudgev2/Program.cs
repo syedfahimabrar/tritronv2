@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 namespace tritronAPI
 {
@@ -18,7 +19,15 @@ namespace tritronAPI
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            WebHost.CreateDefaultBuilder(args).
+                ConfigureLogging((hostingContext, logging) =>
+                {
+                    // Remove all the default logging providers
+                    logging.ClearProviders();
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    // Add NLog as the Logging Provider
+                    logging.AddNLog();
+                })
                 .UseStartup<Startup>();
     }
 }
