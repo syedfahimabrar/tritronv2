@@ -14,8 +14,10 @@ namespace tritronAPI.Persist
         {
             this._context = context;
             this.ProblemRepository = new ProblemRepository(context);
+            this.ProblemRepository = new ProblemRepository(context);
         }
         public IProblemRepository ProblemRepository { get; set; }
+        public ITestRepository TestRepository { get; set; }
         
         private bool disposed = false;
 

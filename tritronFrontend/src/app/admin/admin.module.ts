@@ -7,6 +7,8 @@ import {ShareModule} from '../shared/share/share.module';
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import { EditproblemComponent } from './problem/editproblem/editproblem.component';
 import {ComponentsModule} from '../components/components.module';
+import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
+import {ProblemService} from '../services/problem.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,10 @@ import {ComponentsModule} from '../components/components.module';
     AdminRoutingModule,
       ShareModule,
     AngularEditorModule,
-      ComponentsModule
-  ]
+      ComponentsModule,
+    JwBootstrapSwitchNg2Module
+
+  ],
+  providers:[ProblemService]
 })
 export class AdminModule { }

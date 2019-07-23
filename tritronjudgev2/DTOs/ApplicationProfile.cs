@@ -13,6 +13,7 @@ namespace tritronAPI.DTOs
         {
             CreateMap<User, UserRegisterDTO>()
                 .ReverseMap();
+            CreateMap<ProblemCreateDto, Problem>().ReverseMap();
         }
     }
 }

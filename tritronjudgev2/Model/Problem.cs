@@ -38,6 +38,6 @@ namespace tritronAPI.Model
 
         //More than source code limit is not allowed
         public int? SourceCodeLimit { get; set; }
-        public ICollection<TestFile> TestFiles { get; set; }
+        public virtual ICollection<TestFile> TestFiles { get; set; } = new List<TestFile>();
     }
 }

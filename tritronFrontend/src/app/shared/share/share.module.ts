@@ -4,6 +4,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EscapeHtmlPipe} from '../../pipes/keep-html.pipe';
 import {CovalentCodeEditorModule} from '@covalent/code-editor';
+import {ComponentsModule} from '../../components/components.module';
 
 @NgModule({
   declarations: [

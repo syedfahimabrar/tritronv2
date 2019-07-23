@@ -8,6 +8,8 @@ import {tokenGetter} from '../../app.module';
 import {promise} from 'selenium-webdriver';
 import delayed = promise.delayed;
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {ActivatedRoute} from '@angular/router';
+import {ProblemService} from '../../services/problem.service';
 
 @Component({
   selector: 'app-problemdetails',
@@ -22,10 +24,16 @@ export class ProblemdetailsComponent implements OnInit {
   token:string;
   username:string;
   loggedin:boolean;
-  constructor(auth:AuthService,helper:JwtHelperService) {
+  constructor(auth:AuthService,helper:JwtHelperService,
+              private service:ProblemService,private route:ActivatedRoute) {
     this.model = new ProblemViewModel();
-    this.model.problemName = 'a problem';
-    this.model.problemDescription = Largestrings.problemDescription;
+    service.getProblem(this.route.snapshot.paramMap.get('id')).subscribe((res:ProblemViewModel)=>{
+      console.log(res);
+      this.model = res;
+    },(error)=>{
+      console.log(error);
+    });
+    console.log(this.model.problemDescription);
     this.language = Language.language;
 
     auth.isloggedin.subscribe(log => {

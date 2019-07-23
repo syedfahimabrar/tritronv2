@@ -15,7 +15,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = environment.apiUrl+"api/auth/";
+  baseUrl = environment.apiUrl+"auth/";
   token = new BehaviorSubject<string>(null);
   profilepic = new BehaviorSubject<string>(null);
   isloggedin = new BehaviorSubject<boolean>(null);

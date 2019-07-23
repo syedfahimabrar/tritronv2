@@ -1,11 +1,13 @@
-<form [formGroup]="problemCreateForm" (ngSubmit)="save()" class="form">
-<div class="wrapper nice">
-    <div class="section section-tabs">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 ml-auto col-xl-12 mr-auto">
-                    <p class="category">Create a new problem</p>
-                    <!-- Nav tabs -->
+<form method="put" enctype="multipart/form-data" [formGroup]="problemCreateForm" (ngSubmit)="save()" class="form">
+    <input type="hidden" formControlName="problemAuthorId" id="problemAuthorId">
+    <input type="hidden" formControlName="authorName" id="authorName">
+    <div class="wrapper nice">
+        <div class="section section-tabs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 ml-auto col-xl-12 mr-auto">
+                        <p class="category">Create a new problem</p>
+                        <!-- Nav tabs -->
 
 
                         <div class="card">
@@ -33,9 +35,25 @@
 
                                                 </div>
 
+                                                <!--<bswitch>
+                                                    <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-normal bootstrap-switch-on bootstrap-switch-animate"
+                                                         style="width: 100px;">
+                                                        <div class="bootstrap-switch-container"
+                                                             style="width: 150px; margin-left: 0px;"><span
+                                                                class="bootstrap-switch-handle-on bootstrap-switch-primary"
+                                                                style="width: 50px;">Publish</span><span
+                                                                class="bootstrap-switch-label" style="width: 50px;">&nbsp;</span><span
+                                                                class="bootstrap-switch-handle-off bootstrap-switch-default"
+                                                                style="width: 50px;">Unpublish</span>
+                                                            <input type="checkbox"  id="isPublished" formControlName="isPublished" class="ng-untouched ng-pristine ng-valid">
+                                                        </div>
+                                                    </div>
+                                                </bswitch>-->
+
 
                                                 <angular-editor [placeholder]="'Enter text here...'"
                                                                 formControlName="problemDescription"
+                                                                [config]="config"
                                                                 id="problemDescription">
 
                                                 </angular-editor>
@@ -54,31 +72,43 @@
                                                         Add Test
                                                     </button>
                                                 </div>
-                                                <div formArrayName="Tests" *ngFor="let test of problemCreateForm.get('Tests').controls; let i= index; ">
+                                                <div formArrayName="Tests"
+                                                     *ngFor="let test of problemCreateForm.get('Tests').controls; let i= index; ">
                                                     <div [formGroupName]="i" class="form-group">
-                                                        <h3>Test {{i+1}}</h3>
-                                                        <label [attr.for]="'inputTest'+i" class="now-ui-icons files_paper">input</label>
+                                                        <h3>Test {{i + 1}}</h3>
+                                                        <label [attr.for]="'inputTest'+i"
+                                                               class="now-ui-icons files_paper">input</label>
                                                         <input [id]="'inputTest'+i"
                                                                formControlName="inputTest"
                                                                type="file"
                                                                accept=".txt"
                                                                class="fileinput-new"
                                                                (change)="fileUpload($event,i,'in')">
-                                                        <textarea [disabled]="true" rows="4" cols="50">{{infiletext[i]}}</textarea>
-                                                        <ngbd-modal-component [ButtonName]="'See Details'" [Title]="'Test '+i+' input'" [message]="infiletext[i]"></ngbd-modal-component>
+                                                        <textarea [disabled]="true" rows="4"
+                                                                  cols="50">{{infiletext[i]}}</textarea>
+                                                        <ngbd-modal-component [ButtonName]="'See Details'"
+                                                                              [Title]="'Test '+i+' input'"
+                                                                              [message]="infiletext[i]"></ngbd-modal-component>
                                                         <br>
-                                                        <label [attr.for]="'outputTest'+i" class="now-ui-icons files_paper">output</label>
+                                                        <label [attr.for]="'outputTest'+i"
+                                                               class="now-ui-icons files_paper">output</label>
                                                         <input [id]="'outputTest'+i"
                                                                formControlName="outputTest"
                                                                type="file"
                                                                accept=".txt"
                                                                class="fileinput-new"
                                                                (change)="fileUpload($event,i,'out')">
-                                                        <textarea   [disabled]="true" rows="4" cols="50">{{outfiletext[i]}}</textarea>
-                                                        <ngbd-modal-component [ButtonName]="'See Details'" [Title]="'Test '+i+' output'" [message]="outfiletext[i]"></ngbd-modal-component>
-                                                        <div class="col-sm-6" *ngIf="problemCreateForm.get('Tests').length>1">
-                                                            <button type="button" class="btn btn-danger btn-sm pull-right"
-                                                                    title="Delete Skill" (click)="removeSkillButtonClick(i)">
+                                                        <textarea [disabled]="true" rows="4"
+                                                                  cols="50">{{outfiletext[i]}}</textarea>
+                                                        <ngbd-modal-component [ButtonName]="'See Details'"
+                                                                              [Title]="'Test '+i+' output'"
+                                                                              [message]="outfiletext[i]"></ngbd-modal-component>
+                                                        <div class="col-sm-6"
+                                                             *ngIf="problemCreateForm.get('Tests').length>1">
+                                                            <button type="button"
+                                                                    class="btn btn-danger btn-sm pull-right"
+                                                                    title="Delete Skill"
+                                                                    (click)="removeSkillButtonClick(i)">
                                                                 <span class="now-ui-icons design_scissors"></span>
                                                             </button>
                                                         </div>
@@ -121,20 +151,30 @@
                             </div>
                         </div>
 
+                    </div>
                 </div>
+                <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                    <ngb-panel title="Simple">
+                        <ng-template ngbPanelContent>
+                            <label class="col-sm-5 control-label" for="isPublished">Problem
+                                publish: </label>
+                            <bSwitch id="isPublished"  formControlName="isPublished">
+                            </bSwitch>
+                            <div class="row" style="width: 100% !important;">
+                                <div class="col offset-5">
+                                    <button class="btn btn-primary btn-round  btn-block"
+                                            [disabled]="!problemCreateForm.valid" style="width: 100px !important;" type="submit">Save
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-center col-md-2 col-lg-4">
+
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
             </div>
-            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-                <ngb-panel title="Simple">
-                    <ng-template ngbPanelContent>
-                        <div class="footer text-center">
-                            <button class="btn btn-primary btn-round btn-lg btn-block"  [disabled]="!problemCreateForm.valid" type="submit">Save </button>
-                        </div>
-                        <div [innerHTML]="problemDescription "></div>
-                    </ng-template>
-                </ngb-panel>
-            </ngb-accordion>
         </div>
     </div>
-</div>
 
 </form>

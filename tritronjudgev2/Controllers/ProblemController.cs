@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using tritronAPI.DTOs;
 using tritronAPI.Model;
 using tritronAPI.Persist;
 
@@ -32,18 +34,33 @@ namespace tritronAPI.Controllers
 
         // GET: api/Problem/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            var problem = _uow.ProblemRepository.Get(id);
+            return Ok(problem);
         }
 
         // POST: api/Problem
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Problem problem)
+        public async Task<IActionResult> Post([FromBody] ProblemCreateDto problemdto)
         {
-            _uow.ProblemRepository.Add(problem);
+            var problemtoCreate = _mapper.Map<Problem>(problemdto);
+
+            _uow.ProblemRepository.Add(problemtoCreate);
+            for (int i = 0; i < problemdto.InputTest.Count; i++)
+            {
+                var file = new TestFile();
+                file.Id = Guid.NewGuid();
+                file.InputData = Encoding.ASCII.GetBytes(problemdto.InputTest.ElementAt(i));
+                file.OutputData = Encoding.ASCII.GetBytes(problemdto.OutputTest.ElementAt(i));
+                file.Problem_Id = problemtoCreate.Id;
+                file.Problem = problemtoCreate;
+                problemtoCreate.TestFiles.Add(file);
+            }
+
             _uow.Save();
-            return Ok(problem);
+
+            return Ok(new Problem(){Id = problemtoCreate.Id});
         }
 
         // PUT: api/Problem/5

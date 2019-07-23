@@ -1,6 +1,12 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Largestrings} from '../../../largestrings/largestrings';
 import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ProblemService} from '../../../services/problem.service';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {ProblemcreateModel} from '../../../Models/problemcreate.model';
+import {ToastrService} from 'ngx-toastr';
+import {AngularEditorConfig} from '@kolkov/angular-editor';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-createproblem',
@@ -12,16 +18,27 @@ export class CreateproblemComponent implements OnInit {
   infiletext=[];
   outfiletext=[];
   totaltest;
+  model:ProblemcreateModel;
   problemCreateForm:FormGroup;
   problemDescription:string;
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder,private problemService:ProblemService,
+              private router:Router ,private toastr:ToastrService,private jwtHelper:JwtHelperService) {
     this.problemDescription = Largestrings.problemDescription;
     this.problemCreateForm = this.fb.group({
       problemName:['',Validators.required],
+      isPublished:['',Validators.required],
+      problemAuthorId:['',Validators.required],
+      authorName:['',Validators.required],
       problemDescription:['',Validators.required],
       Tests: this.fb.array([this.addsubform()])
     });
     this.problemCreateForm.controls['problemDescription'].setValue(this.problemDescription);
+    this.problemCreateForm.patchValue(
+        {
+          isPublished:false
+          ,problemAuthorId:this.jwtHelper.decodeToken(localStorage.getItem('token')).UserID
+          ,authorName:this.jwtHelper.decodeToken(localStorage.getItem('token')).unique_name
+        });
     /*this.problemCreateForm = new FormGroup({
       problemName: new FormControl(),
       problemDescription: new FormControl(),
@@ -37,14 +54,36 @@ export class CreateproblemComponent implements OnInit {
   }
   save(){
     console.log('saved');
-    console.log((<FormArray>this.problemCreateForm.get('Tests')).at(0).value);
+    console.log(this.problemCreateForm.value);
+    this.model = new ProblemcreateModel();
+    this.model.problemName = this.problemCreateForm.get('problemName').value;
+    this.model.problemDescription = this.problemCreateForm.get('problemDescription').value;
+    this.model.problemAuthorId = this.problemCreateForm.get('problemAuthorId').value;
+    this.model.authorName = this.problemCreateForm.get('authorName').value;
+    this.model.isPublished = this.problemCreateForm.get('isPublished').value;
+    this.model.inputTest = this.infiletext;
+    this.model.outputTest = this.outfiletext;
+    //console.log(this.problemCreateForm.value);
+
+    //console.log((<FormArray>this.problemCreateForm.get('Tests')).at(0).value);
+    this.problemService.submitProblem(this.model).subscribe((res:ProblemcreateModel)=>{
+      this.toastr.success(res.id+" created!!","problem "+res.id);
+      this.router.navigateByUrl('/problem/'+res.id);
+    },(error)=>{
+      console.log(error);
+      this.toastr.error(error);
+    });
   }
   fileUpload(event,i,ty:string) {
     var reader = new FileReader();
     var m = reader.readAsText(event.srcElement.files[0]);
+    if(event.srcElement.files[0].size>256*1024*1024){
+      this.toastr.info("max size is 256kb");
+      event.srcElement.value = '';
+      return;
+    }
     var me = this;
     reader.onload = function () {
-      console.log(reader.result);
       if(ty==='in')
         me.infiletext[i] = reader.result;
       else
@@ -73,5 +112,30 @@ export class CreateproblemComponent implements OnInit {
   addtest(){
     (<FormArray>this.problemCreateForm.get('Tests')).push(this.addsubform());
   }
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    sanitize: false,
+    toolbarPosition: 'top',
+    defaultFontName: 'Arial',
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ]
+  };
 
 }

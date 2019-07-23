@@ -12,6 +12,7 @@ import {ContestsComponent} from './comps/contests/contests.component';
 import {RegisterComponent} from './comps/register/register.component';
 import {LoginComponent} from './comps/login/login.component';
 import {NgbdModalBasic} from './components/modal/modal.component';
+import {ExamplesComponent} from './examples/examples.component';
 
 const routes: Routes = [
     // { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
     { path: 'profile:id', component: ProfileComponent},
     { path: 'nucleoicons',          component: NucleoiconsComponent },
     { path: 'examples/landing',     component: LandingComponent },
+    { path: 'examples', component: ComponentsComponent},
     // { path: 'examples/profile',     component: ProfileComponent }
     { path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
     { path: 'problem', loadChildren: './problem/problem.module#ProblemModule'}
