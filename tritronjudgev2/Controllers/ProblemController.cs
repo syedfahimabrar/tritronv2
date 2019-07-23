@@ -26,9 +26,9 @@ namespace tritronAPI.Controllers
         }
         // GET: api/Problem
         [HttpGet]
-        public async Task<IActionResult> Get(int? pageNumber,int? pageSize)
+        public async Task<IActionResult> Get(int pageNumber=1,int pageSize=5)
         {
-            var problems = _uow.ProblemRepository.Find(null, 1, 5);
+            var problems = _uow.ProblemRepository.Find(pageNumber,pageSize);
             return Ok(problems);
         }
 

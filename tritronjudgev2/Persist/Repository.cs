@@ -51,6 +51,11 @@ namespace tritronAPI.Persist
                 .Where(predicate)
                 .ToPagedList(pageNumber, pageSize);
         }
+        public IEnumerable<TEntity> Find( int pageNumber=1, int pageSize=5)
+        {
+            return Context.Set<TEntity>()
+                .ToPagedList(pageNumber, pageSize);
+        }
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             return Context.Set<TEntity>().SingleOrDefault(predicate);

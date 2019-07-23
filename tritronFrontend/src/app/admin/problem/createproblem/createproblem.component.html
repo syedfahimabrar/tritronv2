@@ -86,7 +86,7 @@
                                                                (change)="fileUpload($event,i,'in')">
                                                         <textarea [disabled]="true" rows="4"
                                                                   cols="50">{{infiletext[i]}}</textarea>
-                                                        <ngbd-modal-component [ButtonName]="'See Details'"
+                                                        <ngbd-modal-component  [ButtonName]="'See Details'"
                                                                               [Title]="'Test '+i+' input'"
                                                                               [message]="infiletext[i]"></ngbd-modal-component>
                                                         <br>
@@ -100,7 +100,7 @@
                                                                (change)="fileUpload($event,i,'out')">
                                                         <textarea [disabled]="true" rows="4"
                                                                   cols="50">{{outfiletext[i]}}</textarea>
-                                                        <ngbd-modal-component [ButtonName]="'See Details'"
+                                                        <ngbd-modal-component  [ButtonName]="'See Details'"
                                                                               [Title]="'Test '+i+' output'"
                                                                               [message]="outfiletext[i]"></ngbd-modal-component>
                                                         <div class="col-sm-6"

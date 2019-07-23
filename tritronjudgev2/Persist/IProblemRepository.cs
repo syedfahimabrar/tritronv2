@@ -11,6 +11,7 @@ namespace tritronAPI.Persist
         IEnumerable<Problem> GetAll();
         IEnumerable<Problem> Find(Expression<Func<Problem, bool>> predicate);
         IEnumerable<Problem> Find(Expression<Func<Problem, bool>> predicate, int pageNumber, int pageSize);
+        IEnumerable<Problem> Find(int pageNumber = 1, int pageSize = 5);
         Problem SingleOrDefault(Expression<Func<Problem, bool>> predicate);
         void Add(Problem entity);
         void AddRange(IEnumerable<Problem> entities);
