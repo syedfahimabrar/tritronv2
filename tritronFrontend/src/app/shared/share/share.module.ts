@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EscapeHtmlPipe} from '../../pipes/keep-html.pipe';
 import {CovalentCodeEditorModule} from '@covalent/code-editor';
 import {ComponentsModule} from '../../components/components.module';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -15,8 +16,9 @@ import {ComponentsModule} from '../../components/components.module';
       NgbModule,
       FormsModule,
       CovalentCodeEditorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+      NgxPaginationModule
   ],
-  exports: [CommonModule,NgbModule,FormsModule,EscapeHtmlPipe,CovalentCodeEditorModule,ReactiveFormsModule]
+  exports: [CommonModule,NgbModule,FormsModule,EscapeHtmlPipe,CovalentCodeEditorModule,ReactiveFormsModule,NgxPaginationModule]
 })
 export class ShareModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProblemViewModel} from '../../Models/ProblemView.model';
 import {Largestrings} from '../../largestrings/largestrings';
 import {Language} from '../../Models/Language';
@@ -16,7 +16,7 @@ import {ProblemService} from '../../services/problem.service';
   templateUrl: './problemdetails.component.html',
   styleUrls: ['./problemdetails.component.scss']
 })
-export class ProblemdetailsComponent implements OnInit {
+export class ProblemdetailsComponent implements OnInit,OnDestroy {
 
   model:ProblemViewModel;
   submitcode:SubmitCodeModel;
@@ -24,6 +24,7 @@ export class ProblemdetailsComponent implements OnInit {
   token:string;
   username:string;
   loggedin:boolean;
+  activeIds: string[] =['static-1','static-2'];
   constructor(auth:AuthService,helper:JwtHelperService,
               private service:ProblemService,private route:ActivatedRoute) {
     this.model = new ProblemViewModel();
@@ -50,6 +51,8 @@ export class ProblemdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  ngOnDestroy(): void {
   }
 
 }

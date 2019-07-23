@@ -8,8 +8,8 @@
 
                     <div class="card">
 
-                        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-                            <ngb-panel title="{{model.problemName}}">
+                        <ngb-accordion [activeIds]="activeIds" #acc="ngbAccordion" activeIds="ngb-panel-0">
+                            <ngb-panel id="static-1"  title="{{model.problemName}}">
                                 <ng-template ngbPanelContent>
                                     <div [innerHTML]="model.problemDescription | keepHtml:'html'">
 
@@ -17,7 +17,7 @@
                                 </ng-template>
                             </ngb-panel>
                             //vs,vs-dark,hc-black
-                            <ngb-panel title="click to unfold Submission Panel" [disabled]="!loggedin">
+                            <ngb-panel id="static-2" title="click to unfold Submission Panel" [disabled]="!loggedin">
                                 <ng-template ngbPanelContent>
                                     <form #loginForm = "ngForm"  (ngSubmit)="login(loginForm)" class="form" >
                                         <label for="language">Select Language</label>

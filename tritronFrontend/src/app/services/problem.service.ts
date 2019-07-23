@@ -15,4 +15,11 @@ export class ProblemService {
   getProblem(id){
     return this.http.get(this.baseurl+'/'+id);
   }
+  getAll(pageNumber=1,pageSize=5){
+    console.log('pagenumber',pageNumber);
+    console.log('pagesize',pageSize);
+    if(pageNumber==1&& pageSize==5)
+      return this.http.get(this.baseurl);
+    return this.http.get(this.baseurl+'/?pageNumber='+pageNumber+'&pageSize='+pageSize);
+  }
 }

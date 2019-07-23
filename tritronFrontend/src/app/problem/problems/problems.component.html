@@ -1,5 +1,40 @@
 <div class="wrapper">
-  <div class="container nice">
-    <p>problem 1 work</p>
-  </div>
+    <div class="container nice">
+        <!--<div  >
+          <h2>Kevin's Grocery List</h2>
+    
+          <ul  class="list">
+            <li *ngFor="let p of problems" class="item">
+              {{p.problemName}}
+            </li>
+          </ul>
+        </div>-->
+        <div class="card">
+            <div class="card-header"><h5 class="card-category">All Persons List</h5>
+                <h4 class="card-title"> Employees Stats</h4></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                        <th> Problem Id</th>
+                        <th> Problem Name</th>
+                        <th> Problem Author</th>
+                        <th class="text-right"> Total Solved</th>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let p of problems" >
+                            <td><a [routerLink]="['/problem',p.id]"> {{p.id}} </a></td>
+                            <td><a [routerLink]="['/problem',p.id]"> {{p.problemName}} </a></td>
+                            <td> {{p.authorName}}</td>
+                            <td class="text-right"> $36,738</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {{pagenumber}}
+                    {{hello}}
+                    <p>total page {{totalPage}}</p>
+                    <ngb-pagination  [collectionSize]="totalPage" [(page)]="pagenumber"  [pageSize]="5" (pageChange)="loadPage(pagenumber)" aria-label="Default pagination" class="pagination-primary"></ngb-pagination>
+            </div>
+        </div>
+    </div>
 </div>

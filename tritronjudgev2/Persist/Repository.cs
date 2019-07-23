@@ -70,6 +70,17 @@ namespace tritronAPI.Persist
         {
             Context.Set<TEntity>().AddRange(entities);
         }
+        public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null)
+        {
+            IQueryable<TEntity> query = Context.Set<TEntity>();
+            int count = query.Count();
+            if (filter != null)
+            {
+                query = query.Where(filter);
+                count = query.Count();
+            }
+            return count;
+        }
 
         public void Remove(TEntity entity)
         {
