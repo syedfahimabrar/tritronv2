@@ -11,8 +11,8 @@ import {ProblemsModel} from '../../Models/problems.model';
 export class ProblemsComponent implements OnInit {
 
   problems;
-  public pagenumber=2;
-  public totalPage=50;
+  public pagenumber=1;
+  public totalPage=0;
   hello = 5;
   constructor(private service:ProblemService,private route:ActivatedRoute,private router:Router) {
     this.pagenumber =(this.route.snapshot.queryParams['pageNumber']==null?1:this.route.snapshot.queryParams['pageNumber']);
