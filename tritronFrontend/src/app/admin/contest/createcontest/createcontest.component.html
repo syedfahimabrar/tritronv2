@@ -1,0 +1,42 @@
+<div class="wrapper nice">
+    <div class="section section-tabs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 ml-auto col-xl-12 mr-auto">
+                    <p class="category">Create a new problem</p>
+                    <!-- Nav tabs -->
+
+
+                    <div class="card">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <h1>Movie Search</h1>
+                                <input type="text" (keydown)="search($event)">
+
+                                <div *ngFor="let p of problems">
+                                    <h4>{{p.id}}:{{p.problemName}}</h4>
+                                    <p>
+                                        {{p.authorName}}
+                                        <button class="btn btn-primary" (click)="onSelect(p.id)">Add</button>
+                                    </p>
+                                </div>
+
+                                <div *ngIf="problems?.length < 1">
+                                    <hr>
+                                    <p>
+                                        No results found :(
+                                    </p>
+                                </div>
+                                <div >
+                                    <ul>
+                                        <li *ngFor="let s of selectedProblems">{{s}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class ProblemService {
     if(pageNumber==1&& pageSize==5)
       return this.http.get(this.baseurl);
     return this.http.get(this.baseurl+'/?pageNumber='+pageNumber+'&pageSize='+pageSize);
+  }
+  getsearched(searchquery):Observable<any>{
+      console.log(searchquery);
+    return this.http.get(this.baseurl+'/query?query='+searchquery);
   }
 }

@@ -33,6 +33,14 @@ namespace tritronAPI.Controllers
             return Ok(new ProblemListDto(){Problem = problems,TotalCount = cnt});
         }
 
+        [HttpGet]
+        [Route("query")]
+        public async Task<IActionResult> Get(string query)
+        {
+            IEnumerable<Problem> problems = _uow.ProblemRepository.Find(p => p.ProblemName.Contains(query));
+            return Ok(problems);
+        }
+
         // GET: api/Problem/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(int id)

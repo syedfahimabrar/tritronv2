@@ -9,11 +9,13 @@ import { EditproblemComponent } from './problem/editproblem/editproblem.componen
 import {ComponentsModule} from '../components/components.module';
 import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
 import {ProblemService} from '../services/problem.service';
+import { CreatecontestComponent } from './contest/createcontest/createcontest.component';
 
 @NgModule({
   declarations: [
       CreateproblemComponent,
       EditproblemComponent,
+      CreatecontestComponent,
   ],
   imports: [
     CommonModule,
