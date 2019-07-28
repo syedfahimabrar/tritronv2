@@ -10,8 +10,8 @@ using tritronAPI.Data;
 namespace tritronAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190713182455_foreignkeyaddedinmodelbuilder")]
-    partial class foreignkeyaddedinmodelbuilder
+    [Migration("20190725152314_ini")]
+    partial class ini
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -141,7 +141,11 @@ namespace tritronAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("EndTime");
+
                     b.Property<string>("Name");
+
+                    b.Property<DateTime>("StartTime");
 
                     b.HasKey("Id");
 
@@ -217,9 +221,13 @@ namespace tritronAPI.Migrations
 
                     b.Property<int?>("ProblemId");
 
+                    b.Property<string>("User_Id");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProblemId");
+
+                    b.HasIndex("User_Id");
 
                     b.ToTable("Submission");
                 });
@@ -356,7 +364,7 @@ namespace tritronAPI.Migrations
             modelBuilder.Entity("tritronAPI.Model.Problem", b =>
                 {
                     b.HasOne("tritronAPI.Model.Contest", "Contest")
-                        .WithMany()
+                        .WithMany("Problems")
                         .HasForeignKey("Contest_Id");
 
                     b.HasOne("tritronAPI.Model.User", "ProblemAuthor")
@@ -369,6 +377,10 @@ namespace tritronAPI.Migrations
                     b.HasOne("tritronAPI.Model.Problem")
                         .WithMany("Submissions")
                         .HasForeignKey("ProblemId");
+
+                    b.HasOne("tritronAPI.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("User_Id");
                 });
 
             modelBuilder.Entity("tritronAPI.Model.TestFile", b =>

@@ -10,7 +10,6 @@ import {ComponentsModule} from '../components/components.module';
 import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
 import {ProblemService} from '../services/problem.service';
 import { CreatecontestComponent } from './contest/createcontest/createcontest.component';
-
 @NgModule({
   declarations: [
       CreateproblemComponent,
@@ -23,8 +22,7 @@ import { CreatecontestComponent } from './contest/createcontest/createcontest.co
       ShareModule,
     AngularEditorModule,
       ComponentsModule,
-    JwBootstrapSwitchNg2Module
-
+    JwBootstrapSwitchNg2Module,
   ],
   providers:[ProblemService]
 })

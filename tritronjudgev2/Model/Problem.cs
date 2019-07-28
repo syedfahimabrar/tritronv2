@@ -21,6 +21,7 @@ namespace tritronAPI.Model
         public string AuthorName { get; set; }
         //public virtual List<Resources> Resourceses { get; set; }
         public string ProblemDescription { get; set; }
+        public bool IsPublished { get; set; }
         public virtual ICollection<Submission> Submissions { get; set; }
         public string Tags { get; set; }
         //public Guid Contest_Id { get; set; }

@@ -1,36 +1,123 @@
-<div class="wrapper nice">
-    <div class="section section-tabs">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 ml-auto col-xl-12 mr-auto">
-                    <p class="category">Create a new problem</p>
-                    <!-- Nav tabs -->
-
-
-                    <div class="card">
-                        <div class="nav-tabs-navigation">
-                            <div class="nav-tabs-wrapper">
-                                <h1>Movie Search</h1>
-                                <input type="text" (keydown)="search($event)">
-
-                                <div *ngFor="let p of problems">
-                                    <h4>{{p.id}}:{{p.problemName}}</h4>
+<form method="put" [formGroup]="contestCreateForm" (ngSubmit)="save()" class="form">
+    <div class="wrapper nice">
+        <div class="container" class="col-md-10 ml-auto col-xl-10 mr-auto">
+            <p class="category">Create Contest</p>
+            <!-- Tabs with Background on Card -->
+            <div class="card">
+                <div class="nav-tabs-navigation" data-tabs-color="orange">
+                    <div class="nav-tabs-wrapper">
+                        <ngb-tabset [justify]="'center'" class="text-center">
+                            <ngb-tab title="Details">
+                                <ng-template ngbTabContent>
+                                    <h2>Details of contest</h2>
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            <label class="control-label"
+                                                   for="contestName">
+                                                Contest Name:* </label>
+                                            <input id="contestName" formControlName="name"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="datepicker-container">
+                                            <div class="form-group">
+                                                <label class="control-label"
+                                                       for="startDate">
+                                                    Start Date:* </label>
+                                                <input id="startDate" class="form-control datetimepicker"
+                                                        formControlName="startDate" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+                                                <label for="startTime">Start Time: *</label>
+                                                <ngb-timepicker id="startTime" formControlName="startTime" class="form-control">
+                                                </ngb-timepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab title="Profile">
+                                <ng-template ngbTabContent>
+                                    <p> I will be the leader of a company that ends up being worth billions of dollars,
+                                        because I got the answers. I understand culture. I am the nucleus. I think
+                                        that’s a
+                                        responsibility that I have, to push possibilities, to show people, this is the
+                                        level
+                                        that things could be at. I think that’s a responsibility that I have, to push
+                                        possibilities, to show people, this is the level that things could be at. </p>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab title="Messages">
+                                <ng-template ngbTabContent>
+                                    <p>I think that’s a responsibility that I have, to push possibilities, to show
+                                        people,
+                                        this is the level that things could be at. So when you get something that has
+                                        the
+                                        name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I
+                                        will be the leader of a company that ends up being worth billions of dollars,
+                                        because I got the answers. I understand culture. I am the nucleus.</p>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab title="Settings">
+                                <ng-template ngbTabContent>
                                     <p>
-                                        {{p.authorName}}
-                                        <button class="btn btn-primary" (click)="onSelect(p.id)">Add</button>
+                                        "I will be the leader of a company that ends up being worth billions of dollars,
+                                        because I got the answers. I understand culture. I am the nucleus. I think
+                                        that’s a
+                                        responsibility that I have, to push possibilities, to show people, this is the
+                                        level
+                                        that things could be at."
                                     </p>
-                                </div>
+                                </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </div>
+                </div>
+            </div>
+            <!-- End Tabs on plain Card -->
+        </div>
+        <div class="section section-tabs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 ml-auto col-xl-12 mr-auto">
+                        <p class="category">Search the Problems</p>
+                        <!-- Nav tabs -->
 
-                                <div *ngIf="problems?.length < 1">
-                                    <hr>
-                                    <p>
-                                        No results found :(
-                                    </p>
-                                </div>
-                                <div >
-                                    <ul>
-                                        <li *ngFor="let s of selectedProblems">{{s}}</li>
-                                    </ul>
+
+                        <div class="card">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <h1>Search Problems to select</h1>
+                                    <input type="text" (keydown)="search($event)">
+
+                                    <div class="container" style="height: 700px !important;">
+                                        <div class="box">
+                                            <div style="width: 100% !important;" *ngFor="let p of problems">
+
+                                                <h4>{{p.id}}:{{p.problemName}}</h4>
+                                                <p>
+                                                    {{p.authorName}}
+                                                    <button class="btn btn-primary" (click)="onSelect(p.id)">Add
+                                                    </button>
+                                                </p>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div *ngIf="problems?.length < 1">
+                                        <hr>
+                                        <p>
+                                            No results found :(
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <ul>
+                                            <li *ngFor="let s of selectedProblems">{{s}}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -39,4 +126,4 @@
             </div>
         </div>
     </div>
-</div>
+</form>

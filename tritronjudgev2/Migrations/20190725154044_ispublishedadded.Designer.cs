@@ -10,8 +10,8 @@ using tritronAPI.Data;
 namespace tritronAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190713181004_init")]
-    partial class init
+    [Migration("20190725154044_ispublishedadded")]
+    partial class ispublishedadded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -141,13 +141,28 @@ namespace tritronAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("EndTime");
+
                     b.Property<string>("Name");
+
+                    b.Property<DateTime>("StartTime");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name");
-
                     b.ToTable("Contest");
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.ContestProgrammingLanguage", b =>
+                {
+                    b.Property<int>("Contest_id");
+
+                    b.Property<string>("ProgrammingLanguage_Id");
+
+                    b.HasKey("Contest_id", "ProgrammingLanguage_Id");
+
+                    b.HasIndex("ProgrammingLanguage_Id");
+
+                    b.ToTable("ContestProgrammingLanguage");
                 });
 
             modelBuilder.Entity("tritronAPI.Model.Problem", b =>
@@ -159,6 +174,8 @@ namespace tritronAPI.Migrations
                     b.Property<string>("AuthorName");
 
                     b.Property<int?>("Contest_Id");
+
+                    b.Property<bool>("IsPublished");
 
                     b.Property<int>("MemoryLimit");
 
@@ -192,17 +209,9 @@ namespace tritronAPI.Migrations
                     b.Property<string>("Name")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ContestId");
-
-                    b.Property<int?>("ContestId1");
-
                     b.Property<string>("Extension");
 
                     b.HasKey("Name");
-
-                    b.HasIndex("ContestId");
-
-                    b.HasIndex("ContestId1");
 
                     b.ToTable("ProgrammingLanguage");
                 });
@@ -214,9 +223,13 @@ namespace tritronAPI.Migrations
 
                     b.Property<int?>("ProblemId");
 
+                    b.Property<string>("User_Id");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProblemId");
+
+                    b.HasIndex("User_Id");
 
                     b.ToTable("Submission");
                 });
@@ -337,17 +350,23 @@ namespace tritronAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("tritronAPI.Model.Contest", b =>
+            modelBuilder.Entity("tritronAPI.Model.ContestProgrammingLanguage", b =>
                 {
-                    b.HasOne("tritronAPI.Model.ProgrammingLanguage")
-                        .WithMany()
-                        .HasForeignKey("Name");
+                    b.HasOne("tritronAPI.Model.Contest", "Contest")
+                        .WithMany("ContestProgrammingLanguages")
+                        .HasForeignKey("Contest_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("tritronAPI.Model.ProgrammingLanguage", "ProgrammingLanguage")
+                        .WithMany("ContestProgrammingLanguages")
+                        .HasForeignKey("ProgrammingLanguage_Id")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("tritronAPI.Model.Problem", b =>
                 {
                     b.HasOne("tritronAPI.Model.Contest", "Contest")
-                        .WithMany()
+                        .WithMany("Problems")
                         .HasForeignKey("Contest_Id");
 
                     b.HasOne("tritronAPI.Model.User", "ProblemAuthor")
@@ -355,22 +374,15 @@ namespace tritronAPI.Migrations
                         .HasForeignKey("ProblemAuthorId");
                 });
 
-            modelBuilder.Entity("tritronAPI.Model.ProgrammingLanguage", b =>
-                {
-                    b.HasOne("tritronAPI.Model.Contest")
-                        .WithMany("AllowedLanguages")
-                        .HasForeignKey("ContestId");
-
-                    b.HasOne("tritronAPI.Model.Contest")
-                        .WithMany()
-                        .HasForeignKey("ContestId1");
-                });
-
             modelBuilder.Entity("tritronAPI.Model.Submission", b =>
                 {
                     b.HasOne("tritronAPI.Model.Problem")
                         .WithMany("Submissions")
                         .HasForeignKey("ProblemId");
+
+                    b.HasOne("tritronAPI.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("User_Id");
                 });
 
             modelBuilder.Entity("tritronAPI.Model.TestFile", b =>
