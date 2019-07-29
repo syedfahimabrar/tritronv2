@@ -17,6 +17,18 @@
                                                 Contest Name:* </label>
                                             <input id="contestName" formControlName="name"
                                                    class="form-control">
+                                            <label class="control-label"
+                                                   for="bgImage">
+                                                BackGround Image:* </label>
+                                            <input id="bgImage" formControlName="backgroundImage"
+                                                   class="form-control">
+
+                                            <label for="startTime">startTime:</label>
+                                            <hr>
+                                            <ngb-timepicker id="startTime" formControlName="startTime"></ngb-timepicker>
+                                            <label for="endTime">End Time:</label>
+                                            <hr>
+                                            <ngb-timepicker id="endTime" formControlName="endTime"></ngb-timepicker>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -26,24 +38,113 @@
                                                        for="startDate">
                                                     Start Date:* </label>
                                                 <input id="startDate" class="form-control datetimepicker"
-                                                        formControlName="startDate" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
-                                                <label for="startTime">Start Time: *</label>
-                                                <ngb-timepicker id="startTime" formControlName="startTime" class="form-control">
-                                                </ngb-timepicker>
+                                                       formControlName="startDate" ngbDatepicker #d="ngbDatepicker"
+                                                       (click)="d.toggle()">
+                                                <label class="control-label"
+                                                       for="endDate">
+                                                    End Date:* </label>
+                                                <input id="endDate" class="form-control datetimepicker"
+                                                       formControlName="endDate" ngbDatepicker #f="ngbDatepicker"
+                                                       (click)="f.toggle()">
                                             </div>
                                         </div>
                                     </div>
+
+                                    <angular-editor [placeholder]="'Enter text here...'"
+                                                    formControlName="description"
+                                                    [config]="config"
+                                                    id="description">
+
+                                    </angular-editor>
                                 </ng-template>
                             </ngb-tab>
-                            <ngb-tab title="Profile">
+                            <ngb-tab title="Problems">
                                 <ng-template ngbTabContent>
-                                    <p> I will be the leader of a company that ends up being worth billions of dollars,
-                                        because I got the answers. I understand culture. I am the nucleus. I think
-                                        that’s a
-                                        responsibility that I have, to push possibilities, to show people, this is the
-                                        level
-                                        that things could be at. I think that’s a responsibility that I have, to push
-                                        possibilities, to show people, this is the level that things could be at. </p>
+                                    <p class="category">Search the Problems</p>
+                                    <!-- Nav tabs -->
+                                    <div class="nav-tabs-navigation">
+                                        <div class="nav-tabs-wrapper">
+                                            <button class="btn btn-primary" type="button" (click)="open(classic,'' , '')">
+                                                Add Problem
+                                            </button>
+                                            <ng-template #classic let-c="close" let-d="dismiss">
+                                                <div class="modal-header justify-content-center">
+                                                    <button type="button" class="close" (click)="d('Cross click')">
+                                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                                                    </button>
+                                                    <h4 class="title title-up">Add Problems</h4>
+                                                </div>
+                                                <div class="modal-body container">
+                                                    <div class="col-md-5">
+                                                        <label for="search1" class="form-check-label">
+                                                            Search Problems to select
+                                                        </label>
+                                                        <input autocomplete="false" id="search1" class="form-control" type="text"
+                                                               (keydown)="search($event)">
+                                                    </div>
+                                                    <div class="container">
+                                                        <div class="box">
+                                                            <div style="width: 100% !important;" *ngFor="let p of problems">
+
+                                                                <h4>{{p.id}}:{{p.problemName}}</h4>
+                                                                <p>
+                                                                    {{p.authorName}}
+                                                                    <button class="btn btn-primary" (click)="onSelect(p)">Add
+                                                                    </button>
+                                                                </p>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div *ngIf="problems?.length < 1">
+                                                        <hr>
+                                                        <p>
+                                                            No results found :(
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    press escape to close
+                                                </div>
+                                            </ng-template>
+
+                                            <div class="table table-responsive">
+                                                <table class="table">
+                                                    <thead class="text-primary">
+                                                    <th>problem Id</th>
+                                                    <th>problem Name</th>
+                                                    <th>problem Author</th>
+                                                    <th>utils</th>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr *ngFor="let s of selectedProblems">
+                                                        <td>{{s.id}}</td>
+                                                        <td>{{s.problemName}}</td>
+                                                        <td>{{s.authorName}}</td>
+                                                        <td>
+                                                            <button type="button"
+                                                                    class="btn btn-danger btn-sm pull-right"
+                                                                    title="Delete Skill"
+                                                                    (click)="removeproblem(s)">
+                                                                <span class="now-ui-icons design_scissors"></span>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+                                            <div>
+                                                <ul>
+                                                    <li *ngFor="let s of selectedProblems">{{s}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </ng-template>
                             </ngb-tab>
                             <ngb-tab title="Messages">
@@ -74,53 +175,18 @@
                 </div>
             </div>
             <!-- End Tabs on plain Card -->
+            <div class="col offset-5">
+                <button [disabled]="!this.contestCreateForm.valid" class="btn btn-primary btn-round  btn-block"
+                         style="width: 100px !important;" type="submit">Save
+                </button>
+
+            </div>
         </div>
         <div class="section section-tabs">
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 ml-auto col-xl-12 mr-auto">
-                        <p class="category">Search the Problems</p>
-                        <!-- Nav tabs -->
 
-
-                        <div class="card">
-                            <div class="nav-tabs-navigation">
-                                <div class="nav-tabs-wrapper">
-                                    <h1>Search Problems to select</h1>
-                                    <input type="text" (keydown)="search($event)">
-
-                                    <div class="container" style="height: 700px !important;">
-                                        <div class="box">
-                                            <div style="width: 100% !important;" *ngFor="let p of problems">
-
-                                                <h4>{{p.id}}:{{p.problemName}}</h4>
-                                                <p>
-                                                    {{p.authorName}}
-                                                    <button class="btn btn-primary" (click)="onSelect(p.id)">Add
-                                                    </button>
-                                                </p>
-
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div *ngIf="problems?.length < 1">
-                                        <hr>
-                                        <p>
-                                            No results found :(
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <ul>
-                                            <li *ngFor="let s of selectedProblems">{{s}}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

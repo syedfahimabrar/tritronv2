@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using tritronAPI.DTOs;
 using tritronAPI.Model;
 using tritronAPI.Persist;
 
@@ -20,8 +21,10 @@ namespace tritronAPI.Controllers
             this._uow = uow;
         }
         [HttpPost]
-        public async Task<IActionResult> AddContest([FromBody] Contest contest)
+        public async Task<IActionResult> AddContest([FromBody] CreateContestDto contest)
         {
+            var con = new Contest();
+            this._uow.ContestRepository.Add(con);
             return Ok();
         }
     }
