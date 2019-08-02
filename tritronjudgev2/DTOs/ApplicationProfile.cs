@@ -14,6 +14,11 @@ namespace tritronAPI.DTOs
             CreateMap<User, UserRegisterDTO>()
                 .ReverseMap();
             CreateMap<ProblemCreateDto, Problem>().ReverseMap();
+            CreateMap<ProblemDto, Problem>();
+            CreateMap<CreateContestDto, Contest>().ForMember(
+                dest => dest.Problems , opt => opt.MapFrom(src => src.Problems.Select(id => new Problem(){Id = id})))
+                .ForMember(dest => dest.StartTime,opt => opt.MapFrom(src => DateTime.Parse(src.StartTime)))
+                .ForMember(dest => dest.EndTime, opt => opt.MapFrom(src => DateTime.Parse(src.EndTime)));
         }
     }
 }

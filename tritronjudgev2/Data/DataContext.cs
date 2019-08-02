@@ -13,19 +13,14 @@ namespace tritronAPI.Data
 
         }
         public DbSet<Problem> Problems { get; set; }
+        public DbSet<Contest> Contests { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<ContestLanguage> ContestLanguages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>(p => p.ToTable("Users"));
-            modelBuilder.Entity<ContestProgrammingLanguage>()
-                .HasKey(cp => new {cp.Contest_id, cp.ProgrammingLanguage_Id});
-            modelBuilder.Entity<ContestProgrammingLanguage>().HasOne(cp => cp.ProgrammingLanguage)
-                .WithMany(cp => cp.ContestProgrammingLanguages)
-                .HasForeignKey(cp => cp.ProgrammingLanguage_Id);
-            modelBuilder.Entity<ContestProgrammingLanguage>()
-                .HasOne(cp => cp.Contest)
-                .WithMany(cp => cp.ContestProgrammingLanguages)
-                .HasForeignKey(cp => cp.Contest_id);
+            modelBuilder.Entity<ContestLanguage>().HasKey(sc => new {sc.ContestId, sc.LanguageId});
         }
     }
 

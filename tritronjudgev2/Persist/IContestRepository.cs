@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using tritronAPI.Extensions;
 using tritronAPI.Model;
 
 namespace tritronAPI.Persist
 {
     public interface IContestRepository
     {
+        ContestCreateResult CreateContest(Contest contest);
         Contest Get(int id);
         IEnumerable<Contest> GetAll();
         IEnumerable<Contest> Find(Expression<Func<Contest, bool>> predicate);

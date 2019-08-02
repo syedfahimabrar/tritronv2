@@ -23,30 +23,31 @@ namespace tritronAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contest",
+                name: "Contests",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     StartTime = table.Column<DateTime>(nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false)
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    BackgroundImage = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contest", x => x.Id);
+                    table.PrimaryKey("PK_Contests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProgrammingLanguage",
+                name: "Languages",
                 columns: table => new
                 {
-                    Name = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     Extension = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProgrammingLanguage", x => x.Name);
+                    table.PrimaryKey("PK_Languages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,26 +98,26 @@ namespace tritronAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContestProgrammingLanguage",
+                name: "ContestLanguages",
                 columns: table => new
                 {
-                    Contest_id = table.Column<int>(nullable: false),
-                    ProgrammingLanguage_Id = table.Column<string>(nullable: false)
+                    ContestId = table.Column<int>(nullable: false),
+                    LanguageId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ContestProgrammingLanguage", x => new { x.Contest_id, x.ProgrammingLanguage_Id });
+                    table.PrimaryKey("PK_ContestLanguages", x => new { x.ContestId, x.LanguageId });
                     table.ForeignKey(
-                        name: "FK_ContestProgrammingLanguage_Contest_Contest_id",
-                        column: x => x.Contest_id,
-                        principalTable: "Contest",
+                        name: "FK_ContestLanguages_Contests_ContestId",
+                        column: x => x.ContestId,
+                        principalTable: "Contests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ContestProgrammingLanguage_ProgrammingLanguage_ProgrammingLanguage_Id",
-                        column: x => x.ProgrammingLanguage_Id,
-                        principalTable: "ProgrammingLanguage",
-                        principalColumn: "Name",
+                        name: "FK_ContestLanguages_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -215,6 +216,7 @@ namespace tritronAPI.Migrations
                     ProblemAuthorId = table.Column<string>(nullable: true),
                     AuthorName = table.Column<string>(nullable: true),
                     ProblemDescription = table.Column<string>(nullable: true),
+                    IsPublished = table.Column<bool>(nullable: false),
                     Tags = table.Column<string>(nullable: true),
                     Contest_Id = table.Column<int>(nullable: true),
                     Score = table.Column<short>(nullable: false),
@@ -226,9 +228,9 @@ namespace tritronAPI.Migrations
                 {
                     table.PrimaryKey("PK_Problems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Problems_Contest_Contest_Id",
+                        name: "FK_Problems_Contests_Contest_Id",
                         column: x => x.Contest_Id,
-                        principalTable: "Contest",
+                        principalTable: "Contests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -245,7 +247,10 @@ namespace tritronAPI.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     User_Id = table.Column<string>(nullable: true),
-                    ProblemId = table.Column<int>(nullable: true)
+                    ProblemId = table.Column<int>(nullable: true),
+                    Problem_Id = table.Column<int>(nullable: false),
+                    Language = table.Column<string>(nullable: true),
+                    Content = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -312,9 +317,9 @@ namespace tritronAPI.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContestProgrammingLanguage_ProgrammingLanguage_Id",
-                table: "ContestProgrammingLanguage",
-                column: "ProgrammingLanguage_Id");
+                name: "IX_ContestLanguages_LanguageId",
+                table: "ContestLanguages",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Problems_Contest_Id",
@@ -372,7 +377,7 @@ namespace tritronAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ContestProgrammingLanguage");
+                name: "ContestLanguages");
 
             migrationBuilder.DropTable(
                 name: "Submission");
@@ -384,13 +389,13 @@ namespace tritronAPI.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "ProgrammingLanguage");
+                name: "Languages");
 
             migrationBuilder.DropTable(
                 name: "Problems");
 
             migrationBuilder.DropTable(
-                name: "Contest");
+                name: "Contests");
 
             migrationBuilder.DropTable(
                 name: "Users");

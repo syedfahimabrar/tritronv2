@@ -139,6 +139,8 @@ namespace tritronAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("BackgroundImage");
+
                     b.Property<DateTime>("EndTime");
 
                     b.Property<string>("Name");
@@ -147,20 +149,32 @@ namespace tritronAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contest");
+                    b.ToTable("Contests");
                 });
 
-            modelBuilder.Entity("tritronAPI.Model.ContestProgrammingLanguage", b =>
+            modelBuilder.Entity("tritronAPI.Model.ContestLanguage", b =>
                 {
-                    b.Property<int>("Contest_id");
+                    b.Property<int>("ContestId");
 
-                    b.Property<string>("ProgrammingLanguage_Id");
+                    b.Property<string>("LanguageId");
 
-                    b.HasKey("Contest_id", "ProgrammingLanguage_Id");
+                    b.HasKey("ContestId", "LanguageId");
 
-                    b.HasIndex("ProgrammingLanguage_Id");
+                    b.HasIndex("LanguageId");
 
-                    b.ToTable("ContestProgrammingLanguage");
+                    b.ToTable("ContestLanguages");
+                });
+
+            modelBuilder.Entity("tritronAPI.Model.Language", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Extension");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("tritronAPI.Model.Problem", b =>
@@ -202,24 +216,18 @@ namespace tritronAPI.Migrations
                     b.ToTable("Problems");
                 });
 
-            modelBuilder.Entity("tritronAPI.Model.ProgrammingLanguage", b =>
-                {
-                    b.Property<string>("Name")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Extension");
-
-                    b.HasKey("Name");
-
-                    b.ToTable("ProgrammingLanguage");
-                });
-
             modelBuilder.Entity("tritronAPI.Model.Submission", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<byte[]>("Content");
+
+                    b.Property<string>("Language");
+
                     b.Property<int?>("ProblemId");
+
+                    b.Property<int>("Problem_Id");
 
                     b.Property<string>("User_Id");
 
@@ -348,16 +356,16 @@ namespace tritronAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("tritronAPI.Model.ContestProgrammingLanguage", b =>
+            modelBuilder.Entity("tritronAPI.Model.ContestLanguage", b =>
                 {
                     b.HasOne("tritronAPI.Model.Contest", "Contest")
-                        .WithMany("ContestProgrammingLanguages")
-                        .HasForeignKey("Contest_id")
+                        .WithMany("ContestLanguage")
+                        .HasForeignKey("ContestId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("tritronAPI.Model.ProgrammingLanguage", "ProgrammingLanguage")
-                        .WithMany("ContestProgrammingLanguages")
-                        .HasForeignKey("ProgrammingLanguage_Id")
+                    b.HasOne("tritronAPI.Model.Language", "Language")
+                        .WithMany("Contestlanguage")
+                        .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -374,7 +382,7 @@ namespace tritronAPI.Migrations
 
             modelBuilder.Entity("tritronAPI.Model.Submission", b =>
                 {
-                    b.HasOne("tritronAPI.Model.Problem")
+                    b.HasOne("tritronAPI.Model.Problem", "Problem")
                         .WithMany("Submissions")
                         .HasForeignKey("ProblemId");
 

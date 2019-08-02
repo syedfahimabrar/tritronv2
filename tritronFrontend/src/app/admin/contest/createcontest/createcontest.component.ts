@@ -11,6 +11,7 @@ import {CreateContestModel} from '../../../Models/CreateContest.model';
 import {ContestService} from '../../../services/contest.service';
 import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 import {NgbTime} from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-createcontest',
@@ -27,9 +28,10 @@ export class CreatecontestComponent implements OnInit {
   closeResult: string;
   problems;
   selectedProblems = new Set();
+  selectedProblemsId = new Set();
   query:string;
   contestCreateForm:FormGroup;
-  constructor(private conservice:ContestService,private proservice:ProblemService,private fb:FormBuilder,private modalService: NgbModal) {
+  constructor(private toastr:ToastrService,private conservice:ContestService,private proservice:ProblemService,private fb:FormBuilder,private modalService: NgbModal) {
     this.contestCreateForm = this.fb.group({
       name:['',Validators.required],
       startDate:['',Validators.required],
@@ -55,14 +57,18 @@ export class CreatecontestComponent implements OnInit {
     var end = this.ed.day+'/'+this.ed.month+'/'+this.ed.year+' '+this.et.hour+':'+this.et.minute+':'+this.et.second;
     this.model = new CreateContestModel();
     this.model.Name = this.contestCreateForm.get('name').value;
-    this.model.StartDate = start;
-    this.model.EndDate = end;
+    this.model.StartTime = start;
+    this.model.EndTime = end;
     this.model.BackgroundImage = this.contestCreateForm.get('backgroundImage').value;
     this.model.Description = this.contestCreateForm.get('description').value;
-    this.model.Problems = Array.from(this.selectedProblems);
+    this.model.Problems = Array.from(this.selectedProblemsId);
     console.log(this.model);
-    this.conservice.AddContest(this.model).subscribe(res =>{
+    this.conservice.AddContest(this.model).subscribe((res:CreateContestModel) =>{
       console.log(res);
+      this.toastr.success("Contest no "+res.id+" created succesfully","Created");
+    },(error) => {
+      console.log(error);
+      this.toastr.error(error.error.error,"Multiple Problem Error");
     });
   }
 
@@ -88,10 +94,12 @@ export class CreatecontestComponent implements OnInit {
   }
   removeproblem(problem){
     this.selectedProblems.delete(problem);
+    this.selectedProblemsId.delete(problem.id);
   }
   onSelect(p){
       console.log(p);
       this.selectedProblems.add(p);
+      this.selectedProblemsId.add(p.id);
       this.contestCreateForm.patchValue({
         problems:this.selectedProblems
       })

@@ -8,13 +8,15 @@ namespace tritronAPI.DTOs
 {
     public class CreateContestDto
     {
+        public CreateContestDto()
+        {
+            this.Problems = new HashSet<int>();
+        }
         public string Name { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndDate { get; set; }
-        public DateTime EndTime { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public string BackgroundImage { get; set; }
         public string Description { get; set; }
-        public ICollection<Problem> Problems { get; set; }
+        public ICollection<int> Problems { get; set; }
     }
 }

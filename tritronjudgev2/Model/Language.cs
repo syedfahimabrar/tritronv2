@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace tritronAPI.Model
 {
-    public class ProgrammingLanguage
+    public class Language
     {
         [Key]
-        public string Name { get; set; }
+        public string Id { get; set; }
         public string Extension { get; set; }
-        public ICollection<ContestProgrammingLanguage> ContestProgrammingLanguages { get; set; }
+        public ICollection<ContestLanguage> Contestlanguage { get; set; }
     }
 }
