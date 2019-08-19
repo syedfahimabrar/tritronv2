@@ -1,12 +1,13 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Largestrings} from '../../../largestrings/largestrings';
 import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ProblemService} from '../../../services/problem.service';
+import {ProblemService} from '../../../_services/problem.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {ProblemcreateModel} from '../../../Models/problemcreate.model';
+import {ProblemcreateModel} from '../../../_Models/problemcreate.model';
 import {ToastrService} from 'ngx-toastr';
 import {AngularEditorConfig} from '@kolkov/angular-editor';
 import {Router} from '@angular/router';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-createproblem',
@@ -14,7 +15,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./createproblem.component.scss']
 })
 export class CreateproblemComponent implements OnInit {
-
+  selectedlang = new Set();
+  languages;
   infiletext=[];
   outfiletext=[];
   totaltest;
@@ -32,6 +34,11 @@ export class CreateproblemComponent implements OnInit {
       problemDescription:['',Validators.required],
       Tests: this.fb.array([this.addsubform()])
     });
+    this.problemService.getLanguages().subscribe((data)=>{
+      console.log(data);
+      this.languages = data;
+
+    });
     this.problemCreateForm.controls['problemDescription'].setValue(this.problemDescription);
     this.problemCreateForm.patchValue(
         {
@@ -48,7 +55,6 @@ export class CreateproblemComponent implements OnInit {
       })
     });*/
   }
-
   ngOnInit() {
       this.totaltest = 5;
   }
@@ -63,16 +69,17 @@ export class CreateproblemComponent implements OnInit {
     this.model.isPublished = this.problemCreateForm.get('isPublished').value;
     this.model.inputTest = this.infiletext;
     this.model.outputTest = this.outfiletext;
-    //console.log(this.problemCreateForm.value);
+    this.model.problemLanguages = this.selectedlang;
+    console.log(this.model);
 
     //console.log((<FormArray>this.problemCreateForm.get('Tests')).at(0).value);
-    this.problemService.submitProblem(this.model).subscribe((res:ProblemcreateModel)=>{
+    /*this.problemService.submitProblem(this.model).subscribe((res:ProblemcreateModel)=>{
       this.toastr.success(res.id+" created!!","problem "+res.id);
       this.router.navigateByUrl('/problem/'+res.id);
     },(error)=>{
       console.log(error);
       this.toastr.error(error);
-    });
+    });*/
   }
   fileUpload(event,i,ty:string) {
     var reader = new FileReader();
@@ -107,7 +114,15 @@ export class CreateproblemComponent implements OnInit {
       inputTest:['',Validators.required],
       outputTest:['',Validators.required]
     });
-
+  }
+  onCheck(event){
+    //this.selectedlang.add(event.srcElement.name)
+    console.log(event.srcElement.checked);
+    if(event.srcElement.checked)
+      this.selectedlang.add(event.srcElement.name);
+    else
+      this.selectedlang.delete(event.srcElement.name);
+    console.log(this.selectedlang);
   }
   addtest(){
     (<FormArray>this.problemCreateForm.get('Tests')).push(this.addsubform());

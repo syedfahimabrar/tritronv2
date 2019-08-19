@@ -5,6 +5,7 @@ export class ProblemcreateModel {
     isPublished:boolean;
     problemAuthorId:string;
     authorName:string;
+    problemLanguages;
     inputTest;
     outputTest;
 }

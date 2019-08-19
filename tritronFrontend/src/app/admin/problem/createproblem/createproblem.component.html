@@ -86,7 +86,7 @@
                                                                (change)="fileUpload($event,i,'in')">
                                                         <textarea [disabled]="true" rows="4"
                                                                   cols="50">{{infiletext[i]}}</textarea>
-                                                        <ngbd-modal-component  [ButtonName]="'See Details'"
+                                                        <ngbd-modal-component [ButtonName]="'See Details'"
                                                                               [Title]="'Test '+i+' input'"
                                                                               [message]="infiletext[i]"></ngbd-modal-component>
                                                         <br>
@@ -100,7 +100,7 @@
                                                                (change)="fileUpload($event,i,'out')">
                                                         <textarea [disabled]="true" rows="4"
                                                                   cols="50">{{outfiletext[i]}}</textarea>
-                                                        <ngbd-modal-component  [ButtonName]="'See Details'"
+                                                        <ngbd-modal-component [ButtonName]="'See Details'"
                                                                               [Title]="'Test '+i+' output'"
                                                                               [message]="outfiletext[i]"></ngbd-modal-component>
                                                         <div class="col-sm-6"
@@ -121,15 +121,23 @@
                                         </ngb-tab>
                                         <ngb-tab>
                                             <ng-template ngbTabTitle>
-                                                <i class="now-ui-icons shopping_shop"></i> Messages
+                                                <i class="now-ui-icons shopping_shop"></i> Allowed Languages
                                             </ng-template>
                                             <ng-template ngbTabContent>
-                                                <p>I think that’s a responsibility that I have, to push possibilities,
-                                                    to show people, this is the level that things could be at. So when
-                                                    you get something that has the name Kanye West on it, it’s supposed
-                                                    to be pushing the furthest possibilities. I will be the leader of a
-                                                    company that ends up being worth billions of dollars, because I got
-                                                    the answers. I understand culture. I am the nucleus.</p>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-3"><p
+                                                            class="category">
+                                                        Allowed Languages</p>
+                                                        <div style="text-align: left!important;" *ngFor="let lan of languages" class="form-check text_align-left"><label
+                                                                class="form-check-label">
+                                                            <input (change)="onCheck($event)"
+                                                                   [attr.name]="lan.id"
+                                                                class="form-check-input"
+                                                                type="checkbox"><span
+                                                                class="form-check-sign"></span>
+                                                            {{lan.id}} </label></div>
+                                                    </div>
+                                                </div>
                                             </ng-template>
                                         </ngb-tab>
                                         <ngb-tab>
@@ -158,12 +166,13 @@
                         <ng-template ngbPanelContent>
                             <label class="col-sm-5 control-label" for="isPublished">Problem
                                 publish: </label>
-                            <bSwitch id="isPublished"  formControlName="isPublished">
+                            <bSwitch id="isPublished" formControlName="isPublished">
                             </bSwitch>
                             <div class="row" style="width: 100% !important;">
                                 <div class="col offset-5">
                                     <button class="btn btn-primary btn-round  btn-block"
-                                            [disabled]="!problemCreateForm.valid" style="width: 100px !important;" type="submit">Save
+                                            [disabled]="!problemCreateForm.valid" style="width: 100px !important;"
+                                            type="submit">Save
                                     </button>
                                 </div>
                             </div>

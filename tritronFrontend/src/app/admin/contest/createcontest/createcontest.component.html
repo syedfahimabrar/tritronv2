@@ -160,14 +160,20 @@
                             </ngb-tab>
                             <ngb-tab title="Settings">
                                 <ng-template ngbTabContent>
-                                    <p>
-                                        "I will be the leader of a company that ends up being worth billions of dollars,
-                                        because I got the answers. I understand culture. I am the nucleus. I think
-                                        that’s a
-                                        responsibility that I have, to push possibilities, to show people, this is the
-                                        level
-                                        that things could be at."
-                                    </p>
+                                    <div class="nav-tabs-navigation">
+                                        <div class="nav-tabs-wrapper">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <label for="contestType">Contest Type</label>
+                                                    <select id="contestType" formControlName="contestType" class="form-control" >
+                                                        <option *ngFor="let con of contestTypes">{{con.name}}</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </ng-template>
                             </ngb-tab>
                         </ngb-tabset>

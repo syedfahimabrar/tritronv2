@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tritronAPI.DTOs;
+using tritronAPI.Extensions;
 using tritronAPI.Model;
 using tritronAPI.Persist;
 
@@ -39,5 +40,13 @@ namespace tritronAPI.Controllers
             }
             
         }
+        [HttpGet]
+        [Route("type")]
+
+        public async Task<IActionResult> ContestType()
+        {
+            return Ok(EnumExtensions.GetValues<ContestType>());
+        }
+        
     }
 }

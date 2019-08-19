@@ -16,10 +16,12 @@ namespace tritronAPI.Persist
             this.ProblemRepository = new ProblemRepository(context);
             this.ProblemRepository = new ProblemRepository(context);
             this.ContestRepository = new ContestRepository(context);
+            this.LanguageRepository = new LanguageRepository(context);
         }
         public IProblemRepository ProblemRepository { get; set; }
         public ITestRepository TestRepository { get; set; }
         public IContestRepository ContestRepository { get; set; }
+        public ILanguageRepository LanguageRepository { get; set; }
         
         private bool disposed = false;
 

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {Subject} from 'rxjs';
-import {ProblemService} from '../../../services/problem.service';
+import {ProblemService} from '../../../_services/problem.service';
 import {Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AngularEditorConfig} from '@kolkov/angular-editor';
 import {Largestrings} from '../../../largestrings/largestrings';
 import {ModalDismissReasons, NgbDate, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {forEach} from '@angular/router/src/utils/collection';
 import {Time} from '@angular/common';
-import {CreateContestModel} from '../../../Models/CreateContest.model';
-import {ContestService} from '../../../services/contest.service';
+import {CreateContestModel} from '../../../_Models/CreateContest.model';
+import {ContestService} from '../../../_services/contest.service';
 import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 import {NgbTime} from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time';
 import {ToastrService} from 'ngx-toastr';
@@ -20,6 +20,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class CreatecontestComponent implements OnInit {
 
+  contestTypes;
   sd:NgbDate;
   st:NgbTime;
   ed:NgbDate;
@@ -38,8 +39,13 @@ export class CreatecontestComponent implements OnInit {
       startTime:['',Validators.required],
       endDate:['',Validators.required],
       endTime:['',Validators.required],
+      contestType:['',Validators.required],
       backgroundImage:['',Validators.required],
       description:['',Validators.required]
+    });
+    this.conservice.getContestType().subscribe((res)=>{
+      console.log(res);
+      this.contestTypes = res;
     });
   }
   addProblems(){
@@ -52,9 +58,9 @@ export class CreatecontestComponent implements OnInit {
     this.st = this.contestCreateForm.get('startTime').value;
     this.ed = this.contestCreateForm.get('endDate').value;
     this.et = this.contestCreateForm.get('endTime').value;
-    var start = this.sd.day+'/'+this.sd.month+'/'+this.sd.year+' '+this.st.hour+':'+this.st.minute+':'+this.st.second;
+    var start = this.sd.month+'/'+this.sd.day+'/'+this.sd.year+' '+this.st.hour+':'+this.st.minute+':'+this.st.second;
         /*string.concat(sd,' ',st);*/
-    var end = this.ed.day+'/'+this.ed.month+'/'+this.ed.year+' '+this.et.hour+':'+this.et.minute+':'+this.et.second;
+    var end = this.ed.month+'/'+this.ed.day+'/'+this.ed.year+' '+this.et.hour+':'+this.et.minute+':'+this.et.second;
     this.model = new CreateContestModel();
     this.model.Name = this.contestCreateForm.get('name').value;
     this.model.StartTime = start;

@@ -22,7 +22,7 @@
                                     <form #loginForm = "ngForm"  (ngSubmit)="login(loginForm)" class="form" >
                                         <label for="language">Select Language</label>
                                         <select class="form-control" >
-                                            <option *ngFor="let lan of language">{{lan}}</option>
+                                            <option  *ngFor="let lan of language">{{lan.id}}</option>
                                         </select>
                                     <br>
                                         <td-code-editor style="height: 500px"  theme="vs-dark" flex language="csharp">

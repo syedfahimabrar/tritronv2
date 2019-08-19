@@ -11,6 +11,6 @@ namespace tritronAPI.Model
         [Key]
         public string Id { get; set; }
         public string Extension { get; set; }
-        public ICollection<ContestLanguage> Contestlanguage { get; set; }
+        public ICollection<ProblemLanguage> ProblemLanguages { get; set; } 
     }
 }

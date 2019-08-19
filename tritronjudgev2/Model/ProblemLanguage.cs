@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace tritronAPI.Model
 {
-    public class ContestLanguage
+    public class ProblemLanguage
     {
-        public Contest Contest { get; set; }
+        public Problem Problem { get; set; }
         public Language Language { get; set; }
-        public int ContestId { get; set; }
-        public string LanguageId { get; set; }
+        public int ProblemId { get; set; }
+        public int LanguageId { get; set; }
     }
 }

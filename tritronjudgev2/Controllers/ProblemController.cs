@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tritronAPI.DTOs;
+using tritronAPI.Extensions;
 using tritronAPI.Model;
 using tritronAPI.Persist;
 
@@ -28,8 +29,8 @@ namespace tritronAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(int pageNumber=1,int pageSize=5)
         {
-            IEnumerable<Problem> problems = _uow.ProblemRepository.Find(pageNumber,pageSize);
-            var cnt = _uow.ProblemRepository.GetCount();
+            IEnumerable<Problem> problems = _uow.ProblemRepository.Find(p => p.Contest.EndTime < DateTime.Now || p.Contest_Id == null,pageNumber,pageSize);
+            var cnt = _uow.ProblemRepository.GetCount(p => p.Contest.EndTime < DateTime.Now || p.Contest_Id == null);
             return Ok(new ProblemListDto(){Problem = problems,TotalCount = cnt});
         }
 
@@ -82,6 +83,14 @@ namespace tritronAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+        [HttpGet]
+        [Route("language")]
+
+        public async Task<IActionResult> LanguageType()
+        {
+            var Languages = _uow.LanguageRepository.GetAll();
+            return Ok(Languages);
         }
     }
 }

@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace tritronAPI.Model
 {
+    public enum Languages
+    {
+        c,
+        cpp,
+        java,
+        js,
+        py
+    }
     public class Problem
     {
         [Key]
@@ -40,5 +48,6 @@ namespace tritronAPI.Model
         //More than source code limit is not allowed
         public int? SourceCodeLimit { get; set; }
         public virtual ICollection<TestFile> TestFiles { get; set; } = new List<TestFile>();
+        public ICollection<ProblemLanguage> ProblemLanguages { get; set; }
     }
 }

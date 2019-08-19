@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ProblemViewModel} from '../../Models/ProblemView.model';
+import {ProblemViewModel} from '../../_Models/ProblemView.model';
 import {Largestrings} from '../../largestrings/largestrings';
-import {Language} from '../../Models/Language';
-import {SubmitCodeModel} from '../../Models/SubmitCode.model';
-import {AuthService} from '../../services/auth.service';
+import {Language} from '../../_Models/Language';
+import {SubmitCodeModel} from '../../_Models/SubmitCode.model';
+import {AuthService} from '../../_services/auth.service';
 import {tokenGetter} from '../../app.module';
 import {promise} from 'selenium-webdriver';
 import delayed = promise.delayed;
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {ActivatedRoute} from '@angular/router';
-import {ProblemService} from '../../services/problem.service';
+import {ProblemService} from '../../_services/problem.service';
 
 @Component({
   selector: 'app-problemdetails',
@@ -35,7 +35,7 @@ export class ProblemdetailsComponent implements OnInit,OnDestroy {
       console.log(error);
     });
     console.log(this.model.problemDescription);
-    this.language = Language.language;
+    //this.language = Language.language;
 
     auth.isloggedin.subscribe(log => {
       this.loggedin = log;
@@ -48,6 +48,9 @@ export class ProblemdetailsComponent implements OnInit,OnDestroy {
     auth.token.subscribe(tok => this.token = tok);
     console.log(this.token);
     this.submitcode = new SubmitCodeModel();
+    this.service.getLanguages().subscribe((data)=>{
+      this.language = data;
+    });
   }
 
   ngOnInit() {

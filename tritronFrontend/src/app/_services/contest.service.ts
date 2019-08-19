@@ -3,7 +3,7 @@ Copyright (c) Microsoft Corporation. All rights reserve
  */
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Contest} from '../Models/Contest';
+import {Contest} from '../_Models/Contest';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 
@@ -13,10 +13,13 @@ import {HttpClient} from '@angular/common/http';
 
 
 export class ContestService{
-    baseurl = environment.apiUrl+'contest';
+    baseurl = environment.apiUrl+'contest/';
     constructor(private http:HttpClient) {
     }
     AddContest(model:any){
         return this.http.post(this.baseurl,model);
+    }
+    getContestType(){
+        return this.http.get(this.baseurl+"type")
     }
 }

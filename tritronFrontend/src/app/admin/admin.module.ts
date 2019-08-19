@@ -8,7 +8,7 @@ import {AngularEditorModule} from '@kolkov/angular-editor';
 import { EditproblemComponent } from './problem/editproblem/editproblem.component';
 import {ComponentsModule} from '../components/components.module';
 import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
-import {ProblemService} from '../services/problem.service';
+import {ProblemService} from '../_services/problem.service';
 import { CreatecontestComponent } from './contest/createcontest/createcontest.component';
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { CreatecontestComponent } from './contest/createcontest/createcontest.co
       ShareModule,
     AngularEditorModule,
       ComponentsModule,
-    JwBootstrapSwitchNg2Module,
+    JwBootstrapSwitchNg2Module
   ],
   providers:[ProblemService]
 })

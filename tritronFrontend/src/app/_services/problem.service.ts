@@ -8,13 +8,13 @@ import {Observable} from 'rxjs';
 })
 export class ProblemService {
 
-  baseurl = environment.apiUrl+'problem';
+  baseurl = environment.apiUrl+'problem/';
   constructor(private http:HttpClient) { }
   submitProblem(model:any){
     return this.http.post(this.baseurl,model);
   }
   getProblem(id){
-    return this.http.get(this.baseurl+'/'+id);
+    return this.http.get(this.baseurl+id);
   }
   getAll(pageNumber=1,pageSize=5){
     console.log('pagenumber',pageNumber);
@@ -26,5 +26,8 @@ export class ProblemService {
   getsearched(searchquery):Observable<any>{
       console.log(searchquery);
     return this.http.get(this.baseurl+'/query?query='+searchquery);
+  }
+  getLanguages(){
+    return this.http.get(this.baseurl+'language');
   }
 }

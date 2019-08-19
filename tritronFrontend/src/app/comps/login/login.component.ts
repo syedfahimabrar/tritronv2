@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UserRegisterModel} from '../../Models/UserRegisterModel';
-import {AuthService} from '../../services/auth.service';
+import {UserRegisterModel} from '../../_Models/UserRegisterModel';
+import {AuthService} from '../../_services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 
 import {JwtHelperService} from '@auth0/angular-jwt';
