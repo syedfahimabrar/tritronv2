@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
+using Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Models;
 using tritronAPI.DTOs;
-using tritronAPI.Model;
-using tritronAPI.Persist;
 
 namespace tritronAPI.Controllers
 {
@@ -48,7 +48,8 @@ namespace tritronAPI.Controllers
         [Route("Login")]
         public async Task<IActionResult> Login(UserLoginDTO loginDto)
         {
-            var result = await _auth.Login(loginDto);
+            User user = new User(){UserName = loginDto.UserName};
+            var result = await _auth.Login(user,loginDto.PassWord);
             if (result.Succeeded)
             {
                 return Ok(result);

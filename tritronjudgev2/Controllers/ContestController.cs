@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Extension;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using tritronAPI.DTOs;
-using tritronAPI.Extensions;
-using tritronAPI.Model;
-using tritronAPI.Persist;
+using Contracts;
 
 namespace tritronAPI.Controllers
 {

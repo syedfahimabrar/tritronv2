@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using tritronAPI.Model;
+using Models;
 
 namespace tritronAPI.DTOs
 {

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using tritronAPI.DTOs;
-using tritronAPI.Extensions;
-using tritronAPI.Model;
-using tritronAPI.Persist;
 
 namespace tritronAPI.Controllers
 {
