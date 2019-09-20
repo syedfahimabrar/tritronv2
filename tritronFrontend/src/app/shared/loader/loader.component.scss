@@ -161,6 +161,8 @@ p {
   width: 130px;
   height: 170px;
   position: absolute;
+  left: 46%;
+  top: 12%;
 }
 @media (min-width: 1368px) {
 
@@ -169,13 +171,19 @@ p {
    top: 15%;
  }
 }
-@media (min-width: 768px) and (max-width: 1366px) {
+@media (min-width: 1025px) and (max-width: 1280px) {
 
   .loader{
     left: 46%;
     top: 12%;
   }
 
+}
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .loader{
+    left: 46%;
+    top: 12%;
+  }
 }
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
 
