@@ -69,17 +69,17 @@ export class CreateproblemComponent implements OnInit {
     this.model.isPublished = this.problemCreateForm.get('isPublished').value;
     this.model.inputTest = this.infiletext;
     this.model.outputTest = this.outfiletext;
-    this.model.problemLanguages = this.selectedlang;
+    this.model.problemLanguages =Array.from(this.selectedlang.values());
     console.log(this.model);
 
     //console.log((<FormArray>this.problemCreateForm.get('Tests')).at(0).value);
-    /*this.problemService.submitProblem(this.model).subscribe((res:ProblemcreateModel)=>{
+    this.problemService.submitProblem(this.model).subscribe((res:ProblemcreateModel)=>{
       this.toastr.success(res.id+" created!!","problem "+res.id);
       this.router.navigateByUrl('/problem/'+res.id);
     },(error)=>{
       console.log(error);
       this.toastr.error(error);
-    });*/
+    });
   }
   fileUpload(event,i,ty:string) {
     var reader = new FileReader();

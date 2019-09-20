@@ -14,13 +14,15 @@ import { HomeComponent } from './comps/home/home.component';
 import { ContestsComponent } from './comps/contests/contests.component';
 import { ContestlistitemComponent } from './comps/contests/contestlistitem/contestlistitem.component';
 import { RegisterComponent } from './comps/register/register.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {LoginComponent} from './comps/login/login.component';
 import { ProfileComponent } from './comps/profile/profile.component';
 import { FooterComponent } from './comps/footer/footer.component';
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import {EscapeHtmlPipe} from './pipes/keep-html.pipe';
+import { LoaderComponent } from './shared/loader/loader.component';
+import {HttpInterceptor} from './_interceptors/http.interceptor';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -37,6 +39,7 @@ export function tokenGetter() {
         LoginComponent,
         ProfileComponent,
         FooterComponent,
+        LoaderComponent,
     ],
     imports: [
         BrowserAnimationsModule,
@@ -60,7 +63,13 @@ export function tokenGetter() {
         })
     ],
     exports:[NgbModule],
-    providers: [],
+    providers: [
+        {
+            provide:HTTP_INTERCEPTORS,
+            useClass:HttpInterceptor,
+            multi:true
+        }
+        ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

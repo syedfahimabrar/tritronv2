@@ -9,6 +9,7 @@ namespace tritronAPI.DTOs
 {
     public class ProblemCreateDto
     {
+        public int Id { get; set; }
         [Required]
         [MaxLength(255)]
         public string ProblemName { get; set; }
@@ -34,5 +35,6 @@ namespace tritronAPI.DTOs
         //More than source code limit is not allowed
         public int? SourceCodeLimit { get; set; }
         public ICollection<TestFIleDto> Tests { get; set; }
+        public ICollection<int> ProblemLanguages { get; set; }
     }
 }

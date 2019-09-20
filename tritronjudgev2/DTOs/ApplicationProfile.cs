@@ -13,7 +13,8 @@ namespace tritronAPI.DTOs
         {
             CreateMap<User, UserRegisterDTO>()
                 .ReverseMap();
-            CreateMap<ProblemCreateDto, Problem>().ReverseMap();
+            CreateMap<ProblemCreateDto, Problem>()
+                .ForMember(dest=>dest.ProblemLanguages,opt =>opt.MapFrom(src=>src.ProblemLanguages.Select(id => new ProblemLanguage(){LanguageId = id})));
             CreateMap<ProblemDto, Problem>();
             CreateMap<CreateContestDto, Contest>().ForMember(
                 dest => dest.Problems , opt => opt.MapFrom(src => src.Problems.Select(id => new Problem(){Id = id})))

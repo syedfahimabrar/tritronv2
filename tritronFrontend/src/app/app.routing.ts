@@ -13,6 +13,7 @@ import {RegisterComponent} from './comps/register/register.component';
 import {LoginComponent} from './comps/login/login.component';
 import {NgbdModalBasic} from './components/modal/modal.component';
 import {ExamplesComponent} from './examples/examples.component';
+import {LoaderComponent} from './shared/loader/loader.component';
 
 const routes: Routes = [
     // { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
     { path: 'nucleoicons',          component: NucleoiconsComponent },
     { path: 'examples/landing',     component: LandingComponent },
     { path: 'examples', component: ComponentsComponent},
+    { path: 'loader', component: LoaderComponent},
     // { path: 'examples/profile',     component: ProfileComponent }
     { path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
     { path: 'problem', loadChildren: './problem/problem.module#ProblemModule'}
