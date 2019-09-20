@@ -161,9 +161,43 @@ p {
   width: 130px;
   height: 170px;
   position: absolute;
-  left: 47%;
-  top: 15%;
 }
+@media (min-width: 1368px) {
+
+ .loader{
+   left: 47%;
+   top: 15%;
+ }
+}
+@media (min-width: 768px) and (max-width: 1366px) {
+
+  .loader{
+    left: 46%;
+    top: 12%;
+  }
+
+}
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+  .loader{
+    left: 43%;
+    top: 23%;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .loader{
+    left: 43%;
+    top: -3%;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .loader{
+    left: 39%;
+    top: 10%;
+  }
+}
+
 .loader::before, .loader::after {
   content: "" !important;
   width: 0;
