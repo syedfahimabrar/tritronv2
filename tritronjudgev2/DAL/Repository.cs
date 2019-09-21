@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using PagedList;
 
 namespace DAL
@@ -11,17 +12,18 @@ namespace DAL
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;
-
+        private DbSet<TEntity> dbSet;
         public Repository(DbContext context)
         {
             Context = context;
+            this.dbSet = Context.Set<TEntity>();
         }
 
         public TEntity Get(int id)
         {
             // Here we are working with a DbContext, not PlutoContext. So we don't have DbSets 
             // such as Courses or Authors, and we need to use the generic Set() method to access them.
-            return Context.Set<TEntity>().Find(id);
+            return dbSet.Find(id);
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -40,14 +42,51 @@ namespace DAL
             return Enumerable.ToList<TEntity>(Context.Set<TEntity>());
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
-            return Queryable.Where(Context.Set<TEntity>(), predicate);
+            IQueryable<TEntity> query = dbSet;
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+            if (include != null)
+            {
+                query = include(query);
+            }
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
+            //return Queryable.Where(Context.Set<TEntity>(), predicate);
         }
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, int pageNumber, int pageSize)
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate,
+            int pageNumber, int pageSize,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
-            return Queryable.Where(Context.Set<TEntity>(), predicate)
-                .ToPagedList(pageNumber, pageSize);
+            IQueryable<TEntity> query = dbSet;
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+            if (include != null)
+            {
+                query = include(query);
+            }
+            if (orderBy != null)
+            {
+                return orderBy(query).ToPagedList(pageNumber,pageSize);
+            }
+            else
+            {
+                return query.ToPagedList(pageNumber,pageSize);
+            }
         }
         public IEnumerable<TEntity> Find( int pageNumber=1, int pageSize=5)
         {

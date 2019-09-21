@@ -7,6 +7,7 @@ using AutoMapper;
 using Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using tritronAPI.DTOs;
 
@@ -45,8 +46,13 @@ namespace tritronAPI.Controllers
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(int id)
         {
-            var problem = _uow.ProblemRepository.Get(id);
-            return Ok(problem);
+            var problem = _uow.ProblemRepository.Find(p => p.Id == id, null,
+                include: s => s.Include(a => a.ProblemLanguages)
+                    .ThenInclude(a => a.Language)).FirstOrDefault();
+            var res =_mapper.Map<ProblemDto>(problem);
+            //_uow.ProblemRepository.Find(p => p.Id == id, null, "ProblemLanguages").FirstOrDefault();
+            //_uow.ProblemRepository.Get(id);
+            return Ok(res);
         }
 
         // POST: api/Problem

@@ -17,7 +17,7 @@ import {ProblemService} from '../../_services/problem.service';
   styleUrls: ['./problemdetails.component.scss']
 })
 export class ProblemdetailsComponent implements OnInit,OnDestroy {
-
+  selectedlen;
   model:ProblemViewModel;
   submitcode:SubmitCodeModel;
   language;
@@ -52,7 +52,9 @@ export class ProblemdetailsComponent implements OnInit,OnDestroy {
       this.language = data;
     });
   }
-
+  test(){
+    console.log(this.selectedlen);
+  }
   ngOnInit() {
   }
   ngOnDestroy(): void {

@@ -21,8 +21,8 @@
                                 <ng-template ngbPanelContent>
                                     <form #loginForm = "ngForm"  (ngSubmit)="login(loginForm)" class="form" >
                                         <label for="language">Select Language</label>
-                                        <select class="form-control" >
-                                            <option  *ngFor="let lan of language">{{lan.id}}</option>
+                                        <select [(ngModel)]="selectedlen" (change)="test()" [ngModelOptions]="{standalone: true}" class="form-control" >
+                                            <option value="{{lan.id}}"   *ngFor="let lan of model.languages">{{lan.extension}}</option>
                                         </select>
                                     <br>
                                         <td-code-editor style="height: 500px"  theme="vs-dark" flex language="csharp">

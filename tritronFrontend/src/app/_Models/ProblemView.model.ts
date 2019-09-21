@@ -3,4 +3,5 @@ export class ProblemViewModel {
     authorName:string;
     problemName:string;
     problemDescription:string;
+    languages;
 }
