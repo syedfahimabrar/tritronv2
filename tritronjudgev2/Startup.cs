@@ -19,6 +19,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Models;
 using tritronAPI.DTOs;
+using tritronAPI.SignalRHubs;
 
 namespace tritronAPI
 {
@@ -53,6 +54,7 @@ namespace tritronAPI
                     options.Password.RequiredLength = 4;
                 }
             );
+            services.AddSignalR();
             var configmap = new AutoMapper.MapperConfiguration(c =>
                 {
                     c.AddProfile(new ApplicationProfile());
@@ -102,6 +104,10 @@ namespace tritronAPI
             app.UseAuthentication();
             app.UseCors( builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
                 );
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ProblemsHub>("/problems");
+            });
             app.UseMvc();
         }
     }

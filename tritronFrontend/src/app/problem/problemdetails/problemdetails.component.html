@@ -3,29 +3,52 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-10 ml-auto col-xl-12 mr-auto">
-                    <p class="category">{{model.problemName}}</p>
+
                     <!-- Nav tabs -->
 
                     <div class="card">
 
-                        <ngb-accordion [activeIds]="activeIds" #acc="ngbAccordion" activeIds="ngb-panel-0">
-                            <ngb-panel id="static-1"  title="{{model.problemName}}">
+                        <ngb-accordion #acc="ngbAccordion" [activeIds]="activeIds" activeIds="ngb-panel-0">
+                            <ngb-panel id="static-1" title="{{model.problemName}}">
                                 <ng-template ngbPanelContent>
+                                    <div class="row" >
+                                        <div style="padding-top: 40px" class="col-sm-4 ">
+                                            <p class="text-info">Time Limit: <span>{{model.timeLimit}}ms</span></p>
+                                            <p class="text-info">Memory Limit: <span>{{model.memoryLimit}}Mb</span></p>
+                                            <p class="text-info">Source Code Limit:
+                                                <span>{{model.sourceCodeLimit}}</span></p>
+                                        </div>
+                                        <div class="col-sm-4 mid ">
+                                            <p class="font-weight-bolder mid">{{model.problemName}}</p>
+                                        </div>
+                                        <div class="col-sm-4 ">
+                                            <a routerLink="/">
+                                                <div class="col-sm-5 right">
+                                                    <p class="text-info">Author: {{model.authorName}}</p>
+                                                    <img class="rounded img-raised"
+                                                         src="{{model.problemAuthor.profilePicUrl}}">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div [innerHTML]="model.problemDescription | keepHtml:'html'">
 
                                     </div>
                                 </ng-template>
                             </ngb-panel>
                             //vs,vs-dark,hc-black
-                            <ngb-panel id="static-2" title="click to unfold Submission Panel" [disabled]="!loggedin">
+                            <ngb-panel [disabled]="!loggedin" id="static-2" title="click to unfold Submission Panel">
                                 <ng-template ngbPanelContent>
-                                    <form #loginForm = "ngForm"  (ngSubmit)="login(loginForm)" class="form" >
+                                    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="form">
                                         <label for="language">Select Language</label>
-                                        <select [(ngModel)]="selectedlen" (change)="test()" [ngModelOptions]="{standalone: true}" class="form-control" >
-                                            <option value="{{lan.id}}"   *ngFor="let lan of model.languages">{{lan.extension}}</option>
+                                        <select (change)="test()" [(ngModel)]="selectedlen"
+                                                [ngModelOptions]="{standalone: true}" class="form-control">
+                                            <option *ngFor="let lan of model.languages"
+                                                    value="{{lan.id}}">{{lan.extension}}</option>
                                         </select>
-                                    <br>
-                                        <td-code-editor style="height: 500px"  theme="vs-dark" flex language="csharp">
+                                        <br>
+                                        <td-code-editor flex language="js" style="height: 500px" theme="vs-dark">
 
                                         </td-code-editor>
 

@@ -4,4 +4,7 @@ export class ProblemViewModel {
     problemName:string;
     problemDescription:string;
     languages;
+    timeLimit;
+    memoryLimit;
+    sourceCodeLimit;
 }

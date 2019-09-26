@@ -5,5 +5,6 @@
 
 export const environment = {
   apiUrl: 'https://localhost:44311/api/',
-  production: false
+  production: false,
+  socketurl: 'https://localhost:44311/'
 };

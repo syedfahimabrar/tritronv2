@@ -7,9 +7,11 @@ using AutoMapper;
 using Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using tritronAPI.DTOs;
+using tritronAPI.SignalRHubs;
 
 namespace tritronAPI.Controllers
 {
@@ -19,11 +21,13 @@ namespace tritronAPI.Controllers
     {
         private IMapper _mapper;
         private IUnitOfWork _uow;
+        private IHubContext<ProblemsHub> _problemHub;
 
-        public ProblemController(IMapper mapper,IUnitOfWork uow)
+        public ProblemController(IMapper mapper,IUnitOfWork uow,IHubContext<ProblemsHub> problemHub)
         {
             this._mapper = mapper;
             this._uow = uow;
+            this._problemHub = problemHub;
         }
         // GET: api/Problem
         [HttpGet]
@@ -48,7 +52,7 @@ namespace tritronAPI.Controllers
         {
             var problem = _uow.ProblemRepository.Find(p => p.Id == id, null,
                 include: s => s.Include(a => a.ProblemLanguages)
-                    .ThenInclude(a => a.Language)).FirstOrDefault();
+                    .ThenInclude(a => a.Language).Include(a => a.ProblemAuthor)).FirstOrDefault();
             var res =_mapper.Map<ProblemDto>(problem);
             //_uow.ProblemRepository.Find(p => p.Id == id, null, "ProblemLanguages").FirstOrDefault();
             //_uow.ProblemRepository.Get(id);
@@ -74,7 +78,7 @@ namespace tritronAPI.Controllers
             }
 
             _uow.Save();
-
+            this._problemHub.Clients.All.SendAsync("send","hello");
             return Ok(new Problem(){Id = problemtoCreate.Id});
         }
 

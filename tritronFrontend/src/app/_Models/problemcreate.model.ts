@@ -8,4 +8,7 @@ export class ProblemcreateModel {
     problemLanguages;
     inputTest;
     outputTest;
+    timeLimit;
+    memoryLimit;
+    sourceCodeLimit;
 }

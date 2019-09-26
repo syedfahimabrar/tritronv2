@@ -75,7 +75,7 @@
                                                 <div formArrayName="Tests"
                                                      *ngFor="let test of problemCreateForm.get('Tests').controls; let i= index; ">
                                                     <div [formGroupName]="i" class="form-group">
-                                                        <h3>Test {{i + 1}}</h3>
+                                                        <h3 align="center">Test {{i + 1}}</h3>
                                                         <label [attr.for]="'inputTest'+i"
                                                                class="now-ui-icons files_paper">input</label>
                                                         <input [id]="'inputTest'+i"
@@ -145,13 +145,22 @@
                                                 <i class="now-ui-icons ui-2_settings-90"></i> Settings
                                             </ng-template>
                                             <ng-template ngbTabContent>
-                                                <p>
-                                                    "I will be the leader of a company that ends up being worth billions
-                                                    of dollars, because I got the answers. I understand culture. I am
-                                                    the nucleus. I think that’s a responsibility that I have, to push
-                                                    possibilities, to show people, this is the level that things could
-                                                    be at."
-                                                </p>
+                                                <label class="col-sm-5 " for="timeLimit">Time Limit(in milisecond) *</label>
+                                                <div class="col-sm-2">
+                                                    <input id="timeLimit" formControlName="timeLimit"
+                                                           class="form-control" placeholder="1000">
+                                                </div>
+                                                <label class="col-sm-5 " for="memoryLimit">Memory Limit(in MegaByte)Keep 0 for default *</label>
+                                                <div class="col-sm-2">
+                                                    <input id="memoryLimit" formControlName="memoryLimit"
+                                                           class="form-control" placeholder="500">
+                                                </div>
+                                                <label class="col-sm-5 " for="sourceCodeLimit">Source Code Limit(Keep 0 for default)*</label>
+                                                <div class="col-sm-2">
+                                                    <input id="sourceCodeLimit" formControlName="sourceCodeLimit"
+                                                           class="form-control" placeholder="500">
+                                                </div>
+                                                <br>
                                             </ng-template>
                                         </ngb-tab>
                                     </ngb-tabset>

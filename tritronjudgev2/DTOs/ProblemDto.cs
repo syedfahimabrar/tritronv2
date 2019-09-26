@@ -14,6 +14,7 @@ namespace tritronAPI.DTOs
         public string ProblemName { get; set; }
         public string ProblemAuthorId { get; set; }
         public string AuthorName { get; set; }
+        public AuthorDto ProblemAuthor { get; set; }
         //public virtual List<Resources> Resourceses { get; set; }
         public string ProblemDescription { get; set; }
         public bool IsPublished { get; set; }

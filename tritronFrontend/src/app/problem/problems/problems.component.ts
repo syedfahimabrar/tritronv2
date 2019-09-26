@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ProblemService} from '../../_services/problem.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProblemsModel} from '../../_Models/problems.model';
+import {SocproblemsService} from '../../_signalr/socproblems.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-problems',
@@ -11,15 +13,22 @@ import {ProblemsModel} from '../../_Models/problems.model';
 export class ProblemsComponent implements OnInit {
 
   problems;
-  public pagenumber=1;
-  public totalPage=0;
+  public pagenumber;
+  public totalPage;
   hello = 5;
-  constructor(private service:ProblemService,private route:ActivatedRoute,private router:Router) {
+  private socSubscription: Subscription;
+  constructor(private service:ProblemService,private route:ActivatedRoute,
+              private socproblem:SocproblemsService,private router:Router) {
     this.pagenumber =(this.route.snapshot.queryParams['pageNumber']==null?1:this.route.snapshot.queryParams['pageNumber']);
+    console.log(this.pagenumber);
     this.service.getAll(this.pagenumber,5).subscribe((res:ProblemsModel)=>{
       console.log(res);
       this.problems = res.problem;
       this.totalPage = res.totalCount;
+    });
+    this.socproblem.connect();
+    this.socproblem.getMessage().on("send",(payload)=>{
+      this.loadPage(this.pagenumber);
     });
     console.log(this.pagenumber);
     console.log(this.totalPage);
@@ -39,6 +48,9 @@ export class ProblemsComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+  ngOnDestroy(): void {
+    this.socproblem.disconnect();
   }
 
 }

@@ -32,6 +32,9 @@ export class CreateproblemComponent implements OnInit {
       problemAuthorId:['',Validators.required],
       authorName:['',Validators.required],
       problemDescription:['',Validators.required],
+      timeLimit:['',Validators.required],
+      memoryLimit:['',Validators.required],
+      sourceCodeLimit:['',Validators.required],
       Tests: this.fb.array([this.addsubform()])
     });
     this.problemService.getLanguages().subscribe((data)=>{
@@ -69,6 +72,9 @@ export class CreateproblemComponent implements OnInit {
     this.model.isPublished = this.problemCreateForm.get('isPublished').value;
     this.model.inputTest = this.infiletext;
     this.model.outputTest = this.outfiletext;
+    this.model.timeLimit = this.problemCreateForm.get('timeLimit').value;
+    this.model.memoryLimit = this.problemCreateForm.get('memoryLimit').value;
+    this.model.sourceCodeLimit = this.problemCreateForm.get('sourceCodeLimit').value;
     this.model.problemLanguages =Array.from(this.selectedlang.values());
     console.log(this.model);
 
