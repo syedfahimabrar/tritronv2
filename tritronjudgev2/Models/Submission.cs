@@ -12,6 +12,7 @@ namespace Models
         [ForeignKey("User")]
         public string User_Id { get; set; }
         public virtual Problem Problem{get; set; }
+        [ForeignKey("Problem")]
         public int Problem_Id { get; set; }
         public string Language { get; set; }
         public byte[] Content { get; set; }

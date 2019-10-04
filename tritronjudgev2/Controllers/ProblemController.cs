@@ -19,9 +19,9 @@ namespace tritronAPI.Controllers
     [ApiController]
     public class ProblemController : ControllerBase
     {
-        private IMapper _mapper;
-        private IUnitOfWork _uow;
-        private IHubContext<ProblemsHub> _problemHub;
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uow;
+        private readonly IHubContext<ProblemsHub> _problemHub;
 
         public ProblemController(IMapper mapper,IUnitOfWork uow,IHubContext<ProblemsHub> problemHub)
         {
@@ -78,7 +78,7 @@ namespace tritronAPI.Controllers
             }
 
             _uow.Save();
-            this._problemHub.Clients.All.SendAsync("send","hello");
+            await _problemHub.Clients.All.SendAsync("send", "hello");
             return Ok(new Problem(){Id = problemtoCreate.Id});
         }
 
@@ -95,7 +95,6 @@ namespace tritronAPI.Controllers
         }
         [HttpGet]
         [Route("language")]
-
         public async Task<IActionResult> LanguageType()
         {
             var Languages = _uow.LanguageRepository.GetAll();
