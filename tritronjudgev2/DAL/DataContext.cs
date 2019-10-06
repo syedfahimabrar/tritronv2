@@ -19,6 +19,7 @@ namespace DAL
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>(p => p.ToTable("Users"));
             modelBuilder.Entity<ProblemLanguage>().HasKey(sc => new {sc.ProblemId, sc.LanguageId});
+            modelBuilder.Entity<ContestProblem>().HasKey(sc => new {sc.ContestId, sc.ProblemId});
         }
     }
 

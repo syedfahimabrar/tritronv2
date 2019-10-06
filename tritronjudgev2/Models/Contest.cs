@@ -27,5 +27,6 @@ namespace Models
         public string BackgroundImage { get; set; }
         public ICollection<Problem> Problems { get; set; }
         public ContestType ContestType { get; set; }
+        public ICollection<ContestProblem> ContestProblems { get; set; }
     }
 }

@@ -46,5 +46,6 @@ namespace Models
         public int? SourceCodeLimit { get; set; }
         public virtual ICollection<TestFile> TestFiles { get; set; } = new List<TestFile>();
         public ICollection<ProblemLanguage> ProblemLanguages { get; set; }
+        public ICollection<ContestProblem> ContestProblems { get; set; }
     }
 }
