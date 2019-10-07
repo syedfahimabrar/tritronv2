@@ -188,7 +188,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("AuthorName");
 
-                    b.Property<int?>("Contest_Id");
+                    b.Property<int?>("ContestId");
 
                     b.Property<bool>("IsPublished");
 
@@ -212,7 +212,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Contest_Id");
+                    b.HasIndex("ContestId");
 
                     b.HasIndex("ProblemAuthorId");
 
@@ -385,9 +385,9 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Models.Problem", b =>
                 {
-                    b.HasOne("Models.Contest", "Contest")
+                    b.HasOne("Models.Contest")
                         .WithMany("Problems")
-                        .HasForeignKey("Contest_Id");
+                        .HasForeignKey("ContestId");
 
                     b.HasOne("Models.User", "ProblemAuthor")
                         .WithMany()

@@ -36,5 +36,6 @@ namespace tritronAPI.DTOs
         public int? SourceCodeLimit { get; set; }
         public ICollection<TestFIleDto> Tests { get; set; }
         public ICollection<int> ProblemLanguages { get; set; }
+        public bool IsPublished { get; set; }
     }
 }

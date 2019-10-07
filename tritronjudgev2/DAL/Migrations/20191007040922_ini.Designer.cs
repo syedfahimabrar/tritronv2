@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191002042550_changeforeignkeypropofsubmission")]
-    partial class changeforeignkeypropofsubmission
+    [Migration("20191007040922_ini")]
+    partial class ini
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,6 +156,19 @@ namespace DAL.Migrations
                     b.ToTable("Contests");
                 });
 
+            modelBuilder.Entity("Models.ContestProblem", b =>
+                {
+                    b.Property<int>("ContestId");
+
+                    b.Property<int>("ProblemId");
+
+                    b.HasKey("ContestId", "ProblemId");
+
+                    b.HasIndex("ProblemId");
+
+                    b.ToTable("ContestProblem");
+                });
+
             modelBuilder.Entity("Models.Language", b =>
                 {
                     b.Property<int>("Id")
@@ -177,7 +190,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("AuthorName");
 
-                    b.Property<int?>("Contest_Id");
+                    b.Property<int?>("ContestId");
 
                     b.Property<bool>("IsPublished");
 
@@ -201,7 +214,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Contest_Id");
+                    b.HasIndex("ContestId");
 
                     b.HasIndex("ProblemAuthorId");
 
@@ -359,11 +372,24 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Models.Problem", b =>
+            modelBuilder.Entity("Models.ContestProblem", b =>
                 {
                     b.HasOne("Models.Contest", "Contest")
+                        .WithMany("ContestProblems")
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Models.Problem", "Problem")
+                        .WithMany("ContestProblems")
+                        .HasForeignKey("ProblemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Models.Problem", b =>
+                {
+                    b.HasOne("Models.Contest")
                         .WithMany("Problems")
-                        .HasForeignKey("Contest_Id");
+                        .HasForeignKey("ContestId");
 
                     b.HasOne("Models.User", "ProblemAuthor")
                         .WithMany()

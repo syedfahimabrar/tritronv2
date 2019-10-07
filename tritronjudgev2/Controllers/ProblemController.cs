@@ -33,8 +33,8 @@ namespace tritronAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(int pageNumber=1,int pageSize=5)
         {
-            IEnumerable<Problem> problems = _uow.ProblemRepository.Find(p => p.Contest.EndTime < DateTime.Now || p.Contest_Id == null,pageNumber,pageSize);
-            var cnt = _uow.ProblemRepository.GetCount(p => p.Contest.EndTime < DateTime.Now || p.Contest_Id == null);
+            IEnumerable<Problem> problems = _uow.ProblemRepository.Find(pageNumber,pageSize);
+            var cnt = _uow.ProblemRepository.GetCount();
             return Ok(new ProblemListDto(){Problem = problems,TotalCount = cnt});
         }
 

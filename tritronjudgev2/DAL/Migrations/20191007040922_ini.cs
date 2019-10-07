@@ -196,18 +196,18 @@ namespace DAL.Migrations
                     ProblemDescription = table.Column<string>(nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
                     Tags = table.Column<string>(nullable: true),
-                    Contest_Id = table.Column<int>(nullable: true),
                     Score = table.Column<short>(nullable: false),
                     TimeLimit = table.Column<int>(nullable: false),
                     MemoryLimit = table.Column<int>(nullable: false),
-                    SourceCodeLimit = table.Column<int>(nullable: true)
+                    SourceCodeLimit = table.Column<int>(nullable: true),
+                    ContestId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Problems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Problems_Contests_Contest_Id",
-                        column: x => x.Contest_Id,
+                        name: "FK_Problems_Contests_ContestId",
+                        column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -217,6 +217,30 @@ namespace DAL.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContestProblem",
+                columns: table => new
+                {
+                    ContestId = table.Column<int>(nullable: false),
+                    ProblemId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContestProblem", x => new { x.ContestId, x.ProblemId });
+                    table.ForeignKey(
+                        name: "FK_ContestProblem_Contests_ContestId",
+                        column: x => x.ContestId,
+                        principalTable: "Contests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ContestProblem_Problems_ProblemId",
+                        column: x => x.ProblemId,
+                        principalTable: "Problems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -249,7 +273,6 @@ namespace DAL.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     User_Id = table.Column<string>(nullable: true),
-                    ProblemId = table.Column<int>(nullable: true),
                     Problem_Id = table.Column<int>(nullable: false),
                     Language = table.Column<string>(nullable: true),
                     Content = table.Column<byte[]>(nullable: true)
@@ -258,11 +281,11 @@ namespace DAL.Migrations
                 {
                     table.PrimaryKey("PK_Submission", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Submission_Problems_ProblemId",
-                        column: x => x.ProblemId,
+                        name: "FK_Submission_Problems_Problem_Id",
+                        column: x => x.Problem_Id,
                         principalTable: "Problems",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Submission_Users_User_Id",
                         column: x => x.User_Id,
@@ -319,14 +342,19 @@ namespace DAL.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContestProblem_ProblemId",
+                table: "ContestProblem",
+                column: "ProblemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProblemLanguages_LanguageId",
                 table: "ProblemLanguages",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Problems_Contest_Id",
+                name: "IX_Problems_ContestId",
                 table: "Problems",
-                column: "Contest_Id");
+                column: "ContestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Problems_ProblemAuthorId",
@@ -334,9 +362,9 @@ namespace DAL.Migrations
                 column: "ProblemAuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Submission_ProblemId",
+                name: "IX_Submission_Problem_Id",
                 table: "Submission",
-                column: "ProblemId");
+                column: "Problem_Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Submission_User_Id",
@@ -377,6 +405,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "ContestProblem");
 
             migrationBuilder.DropTable(
                 name: "ProblemLanguages");

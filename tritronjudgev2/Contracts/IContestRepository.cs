@@ -10,7 +10,6 @@ namespace Contracts
 {
     public interface IContestRepository
     {
-        ContestCreateResult CreateContest(Contest contest);
         Contest Get(int id);
         IEnumerable<Contest> GetAll();
         IEnumerable<Contest> Find(Expression<Func<Contest, bool>> predicate,
