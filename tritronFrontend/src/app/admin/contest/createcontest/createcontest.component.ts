@@ -12,6 +12,8 @@ import {ContestService} from '../../../_services/contest.service';
 import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 import {NgbTime} from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time';
 import {ToastrService} from 'ngx-toastr';
+import {SortablejsOptions} from 'angular-sortablejs';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-createcontest',
@@ -68,6 +70,11 @@ export class CreatecontestComponent implements OnInit {
     this.model.BackgroundImage = this.contestCreateForm.get('backgroundImage').value;
     this.model.Description = this.contestCreateForm.get('description').value;
     this.model.Problems = Array.from(this.selectedProblemsId);
+    var cnt=0;
+    this.selectedProblems.forEach((item,index)=> {
+      this.model.ProblemNumbers.push(String.fromCharCode(cnt+65));
+      cnt++;
+    });
     console.log(this.model);
     this.conservice.AddContest(this.model).subscribe((res:CreateContestModel) =>{
       console.log(res);

@@ -20,15 +20,14 @@
               "src/assets",
               "src/favicon.ico",
               "src/web.config",
-              {"glob": "**/*",
-              "input": "node_modules/monaco-editor/min",
-              /**
-               * DEPRECATED and will be removed in 3.0.0
-               * "input": "node_modules/@covalent/code-editor/assets/monaco",
-               */
-              "output": "/assets/monaco"}
+              {
+                "glob": "**/*",
+                "input": "node_modules/monaco-editor/min",
+                "output": "/assets/monaco"
+              }
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "src/assets/sass/now-ui-kit.scss",
               "src/assets/css/demo.css"
@@ -85,6 +84,7 @@
               "node_modules/rellax/rellax.min.js"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "src/assets/sass/now-ui-kit.scss",
               "src/assets/css/demo.css"

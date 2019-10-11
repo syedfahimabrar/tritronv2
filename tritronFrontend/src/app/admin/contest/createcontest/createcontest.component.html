@@ -110,38 +110,13 @@
                                                 </div>
                                             </ng-template>
 
-                                            <div class="table table-responsive">
-                                                <table class="table">
-                                                    <thead class="text-primary">
-                                                    <th>problem Id</th>
-                                                    <th>problem Name</th>
-                                                    <th>problem Author</th>
-                                                    <th>utils</th>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr *ngFor="let s of selectedProblems">
-                                                        <td>{{s.id}}</td>
-                                                        <td>{{s.problemName}}</td>
-                                                        <td>{{s.authorName}}</td>
-                                                        <td>
-                                                            <button type="button"
-                                                                    class="btn btn-danger btn-sm pull-right"
-                                                                    title="Delete Skill"
-                                                                    (click)="removeproblem(s)">
-                                                                <span class="now-ui-icons design_scissors"></span>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
+                                            <h2>Added Problems</h2>
+                                            <div align="center">
+                                                <div cdkDropList class="example-list text_align-center" (cdkDropListDropped)="drop($event)">
+                                                    <div class="example-box" *ngFor="let p of selectedProblems;let i = index" cdkDrag><p><b>{{i+65|asci}}</b>. &nbsp;{{p.problemName}}</p></div>
+                                                </div>
                                             </div>
 
-
-                                            <div>
-                                                <ul>
-                                                    <li *ngFor="let s of selectedProblems">{{s}}</li>
-                                                </ul>
-                                            </div>
                                         </div>
 
                                     </div>

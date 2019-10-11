@@ -9,4 +9,5 @@ export class CreateContestModel {
     Description:string;
     AllowedLanguage:[string];
     Problems;
+    ProblemNumbers:Array<string> = [];
 }

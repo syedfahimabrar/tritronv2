@@ -23,6 +23,9 @@ import {AngularEditorModule} from '@kolkov/angular-editor';
 import {EscapeHtmlPipe} from './pipes/keep-html.pipe';
 import { LoaderComponent } from './shared/loader/loader.component';
 import {HttpInterceptor} from './_interceptors/http.interceptor';
+import {SortablejsModule} from 'angular-sortablejs';
+import {MatButtonModule, MatIconModule, MatInputModule, MatSelectModule} from '@angular/material';
+import { AsciPipe } from './pipes/asci.pipe';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -39,7 +42,7 @@ export function tokenGetter() {
         LoginComponent,
         ProfileComponent,
         FooterComponent,
-        LoaderComponent,
+        LoaderComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -52,7 +55,12 @@ export function tokenGetter() {
         ExamplesModule,
         HttpClientModule,
         ToastrModule.forRoot(),
+        SortablejsModule.forRoot({ animation: 150 }),
         ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatIconModule,
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,

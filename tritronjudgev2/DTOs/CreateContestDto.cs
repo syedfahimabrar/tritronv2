@@ -17,5 +17,6 @@ namespace tritronAPI.DTOs
         public string BackgroundImage { get; set; }
         public string Description { get; set; }
         public ICollection<int> Problems { get; set; }
+        public ICollection<string> ProblemNumbers { get; set; }
     }
 }
