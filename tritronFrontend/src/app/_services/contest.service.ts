@@ -19,6 +19,9 @@ export class ContestService{
     AddContest(model:any){
         return this.http.post(this.baseurl,model);
     }
+    GetAll(pageNumber:number){
+        return this.http.get(this.baseurl+'?pageNumber='+pageNumber);
+    }
     getContestType(){
         return this.http.get(this.baseurl+"type")
     }

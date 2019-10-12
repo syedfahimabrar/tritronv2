@@ -12,6 +12,10 @@ namespace tritronAPI.DTOs
     {
         public ApplicationProfile()
         {
+            CreateMap<Contest, ContestDtoForList>()
+                .ForMember(dest => dest.ContestType, opt => opt.MapFrom(src => src.ContestType.ToString()));
+            CreateMap<List<Contest>, ContestListDto>()
+                .ForMember(dest =>dest.Contests,opt => opt.MapFrom(src => src));
             CreateMap<User, UserRegisterDTO>()
                 .ReverseMap();
             CreateMap<User, AuthorDto>();

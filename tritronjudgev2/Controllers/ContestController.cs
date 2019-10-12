@@ -32,6 +32,16 @@ namespace tritronAPI.Controllers
             _uow.Save();
             return Ok(new Contest() { Id = con.Id });
         }
+
+        public async Task<IActionResult> Get(int pageNumber=1,int pageSize = 5)
+        {
+            ICollection<Contest> contests = _uow.ContestRepository.Find(pageNumber, pageSize).ToList();
+            ContestListDto con = new ContestListDto();
+            con.Contests = _mapper.Map<ICollection<Contest>, ICollection<ContestDtoForList>>(contests);
+            con.Total = _uow.ContestRepository.GetCount();
+            return Ok(value: con);
+        }
+
         [HttpGet]
         [Route("type")]
 
