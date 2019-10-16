@@ -14,10 +14,12 @@ import {LoginComponent} from './comps/login/login.component';
 import {NgbdModalBasic} from './components/modal/modal.component';
 import {ExamplesComponent} from './examples/examples.component';
 import {LoaderComponent} from './shared/loader/loader.component';
+import {ContestComponent} from './comps/contests/contest/contest.component';
 
 const routes: Routes = [
     // { path: '', redirectTo: 'index', pathMatch: 'full' },
     { path: '', component: HomeComponent},
+    { path: 'contest/:id', component: ContestComponent},
     { path: 'contests' , component: ContestsComponent},
     { path: 'index',                component: ComponentsComponent },
     { path: 'register',          component: RegisterComponent },

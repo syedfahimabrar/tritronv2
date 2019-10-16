@@ -26,6 +26,7 @@ import {HttpInterceptor} from './_interceptors/http.interceptor';
 import {SortablejsModule} from 'angular-sortablejs';
 import {MatButtonModule, MatIconModule, MatInputModule, MatSelectModule} from '@angular/material';
 import { AsciPipe } from './pipes/asci.pipe';
+import { ContestComponent } from './comps/contests/contest/contest.component';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -42,7 +43,8 @@ export function tokenGetter() {
         LoginComponent,
         ProfileComponent,
         FooterComponent,
-        LoaderComponent
+        LoaderComponent,
+        ContestComponent
     ],
     imports: [
         BrowserAnimationsModule,
