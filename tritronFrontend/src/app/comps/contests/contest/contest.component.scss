@@ -1352,7 +1352,7 @@ button:hover {
 @media only screen and (max-width: 826px) {
   .slider-layout2 .comingsoon-inner .comingsoon-content p {
     line-height: 1.4;
-    font-size: 2rem !important;
+    font-size: 1rem !important;
   }
   .slider-layout2 .comingsoon-inner{
     top:50%;
@@ -1364,7 +1364,7 @@ button:hover {
     font-size: 1rem !important;
   }
   .slider-layout2 .comingsoon-inner{
-    top:30%;
+    top:60%;
   }
 }
 
@@ -1750,6 +1750,12 @@ button:hover {
   text-align: center;
   margin-bottom: 20px !important;
   margin-top: 30px;
+  display: block !important;
+}
+@media only screen and (max-width: 768px) {
+  .countdown-layout2{
+    margin-bottom: -70px !important;
+  }
 }
 .countdown-layout2 .countdown-section {
   text-align: center;
@@ -1792,12 +1798,18 @@ button:hover {
 @media only screen and (max-width: 830px) {
   .countdown-layout2 .countdown-section h2 {
     padding: 0 20px;
-    font-size: 56px;
+    font-size: 26px;
+  }
+  .countdown-layout2 .countdown-section h2:after{
+    font-size: 6px !important;
+  }
+  .countdown-layout2 .countdown-section h2:before{
+    font-size: 6px !important;
   }
 }
 @media only screen and (max-width: 575px) {
   .countdown-layout2 .countdown-section h2 {
-    font-size: 6rem;
+    font-size: 10px;
     padding: 0 15px;
   }
 }
@@ -1879,14 +1891,14 @@ button:hover {
 }
 @media only screen and (max-width: 767px) {
   .countdown-layout2 .countdown-section h3 {
-    bottom: 0px;
+    bottom: 47px;
     font-size: 15px;
   }
 }
 @media only screen and (max-width: 575px) {
   .countdown-layout2 .countdown-section h3 {
     bottom: 35px;
-    font-size: 14px;
+    font-size: 10px;
   }
 }
 .countdown-layout3 {
