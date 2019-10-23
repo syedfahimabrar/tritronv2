@@ -17,11 +17,11 @@
           <tbody class="menu-list">
           <tr *ngFor="let c of contests" class="menu-item">
             <th>
-              <div class="schedule-date"> {{c.id}}</div>
+              <div class="schedule-date"> <a [routerLink]="['/contest',c.id]" >{{c.id}}</a></div>
             </th>
             <td>
               <div class="schedule-title">
-                <a href="">{{c.name}}</a>
+                <a [routerLink]="['/contest',c.id]" >{{c.name}}</a>
               </div>
             </td>
             <td>

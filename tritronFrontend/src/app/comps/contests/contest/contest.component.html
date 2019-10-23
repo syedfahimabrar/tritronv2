@@ -1,2 +1,3 @@
-<app-beforecontest [contest]="contest" *ngIf="stgnow$|async"></app-beforecontest>
-
+<app-beforecontest [contest]="contest" *ngIf="stgbefore$|async"></app-beforecontest>
+<app-runningcontest *ngIf="stgrunning$|async"></app-runningcontest>
+<app-aftercontest *ngIf="stgend$|async"></app-aftercontest>

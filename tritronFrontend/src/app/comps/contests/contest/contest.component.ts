@@ -15,17 +15,26 @@ export class ContestComponent implements OnInit {
   date;
   pay;
   //start time greater than now
-  stgnow$:Observable<boolean>;
+  stgbefore$:Observable<boolean>;
+  stgrunning$:Observable<boolean>;
+  stgend$:Observable<boolean>;
 
   constructor(private service: ContestService,private route:ActivatedRoute) {
     this.service.GetContest(this.route.snapshot.paramMap.get('id')).
-        subscribe( (res)=> {
+        subscribe( (res:{startTime,endTime})=> {
           this.contest = res;
           console.log(this.contest);
-          this.stgnow$  =new Observable((observer)=>{
+          this.stgbefore$  =new Observable((observer)=>{
             observer.next((new Date(res.startTime).getTime() > new Date().getTime()));
           });
-          console.log(this.stgnow$);
+          this.stgrunning$ = new Observable((observer)=>{
+            observer.next((new Date(res.startTime).getTime()<new Date().getTime() &&
+                          new Date(res.endTime).getTime()>new Date().getTime()));
+          });
+          this.stgend$ = new Observable((observer)=>{
+            observer.next(new Date(res.endTime).getTime()<new Date().getTime());
+          });
+          console.log(this.stgbefore$);
         });
     console.log(this.contest);
     this.date = new Date().getTime();
