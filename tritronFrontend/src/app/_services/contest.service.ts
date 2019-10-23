@@ -22,6 +22,9 @@ export class ContestService{
     GetAll(pageNumber:number){
         return this.http.get(this.baseurl+'?pageNumber='+pageNumber);
     }
+    GetContest(id){
+        return this.http.get(this.baseurl+id);
+    }
     getContestType(){
         return this.http.get(this.baseurl+"type")
     }

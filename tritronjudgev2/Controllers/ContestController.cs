@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using tritronAPI.DTOs;
 using Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace tritronAPI.Controllers
 {
@@ -40,6 +41,15 @@ namespace tritronAPI.Controllers
             con.Contests = _mapper.Map<ICollection<Contest>, ICollection<ContestDtoForList>>(contests);
             con.Total = _uow.ContestRepository.GetCount();
             return Ok(value: con);
+        }
+        // GET: api/Problem/5
+        [HttpGet("{id}", Name = "GetContest")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var contest = _uow.ContestRepository.Get(id);
+            if (contest.StartTime < DateTime.Now)
+                contest = _uow.ContestRepository.Find(c => c.Id == id,null,c => c.Include(s => s.ContestProblems)).FirstOrDefault();
+            return Ok(value: contest);
         }
 
         [HttpGet]

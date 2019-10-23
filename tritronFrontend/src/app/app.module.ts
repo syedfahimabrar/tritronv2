@@ -27,6 +27,9 @@ import {SortablejsModule} from 'angular-sortablejs';
 import {MatButtonModule, MatIconModule, MatInputModule, MatSelectModule} from '@angular/material';
 import { AsciPipe } from './pipes/asci.pipe';
 import { ContestComponent } from './comps/contests/contest/contest.component';
+import { BeforecontestComponent } from './comps/contests/contest/beforecontest/beforecontest.component';
+import { RunningcontestComponent } from './comps/contests/contest/runningcontest/runningcontest.component';
+import { AftercontestComponent } from './comps/contests/contest/aftercontest/aftercontest.component';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -44,7 +47,10 @@ export function tokenGetter() {
         ProfileComponent,
         FooterComponent,
         LoaderComponent,
-        ContestComponent
+        ContestComponent,
+        BeforecontestComponent,
+        RunningcontestComponent,
+        AftercontestComponent
     ],
     imports: [
         BrowserAnimationsModule,

@@ -1,22 +1,2 @@
-<section class="slider-layout2 overlay-icon-layout3 nice">
-  <img src="assets/img/6.jpg" class="img-fluid" alt="banner">
-  <div class="comingsoon-inner">
-    <div class="container">
-      <div class="comingsoon-content">
-        <p class="text-underline">Take-Off Programming Contest - Summer 2019</p>
-        <ul class="upcoming-event-info">
-          <li>26 July 2019</li>
-          <li>CSE Building, Main Campus, DIU</li>
-        </ul>
-        <div class="countdown-layout2 d-none d-sm-block">
-          <div id="countdown"><div class="countdown-section"><h2>00</h2> <h3>days</h3> </div><div class="countdown-section"><h2>00</h2> <h3>Hours</h3> </div><div class="countdown-section"><h2>00</h2> <h3>Minutes</h3> </div><div class="countdown-section"><h2>00</h2> <h3>Second</h3> </div></div>
-        </div>
-        <div class="row">
-          <div class="col-12 text-center  d-md-block ">
-            <a href="registration.php" title="Register Now!" class="btn-fill size-lg border-radius-5 color-yellow">Register Now!</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<app-beforecontest [contest]="contest" *ngIf="stgnow$|async"></app-beforecontest>
+
