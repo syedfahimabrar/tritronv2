@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fd1b06b6-5965-4edd-8e22-1582853fda52" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tritronFrontend/src/app/comps/contests/contests.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/tritronFrontend/src/app/comps/contests/contests.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/DesignTimeBuild/.dtbcache" beforeDir="false" afterPath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/DesignTimeBuild/.dtbcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/v15/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/v15/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/v15/Server/sqlite3/storage.ide" beforeDir="false" afterPath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/v15/Server/sqlite3/storage.ide" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/v15/Server/sqlite3/storage.ide-shm" beforeDir="false" afterPath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/v15/Server/sqlite3/storage.ide-shm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/v15/Server/sqlite3/storage.ide-wal" beforeDir="false" afterPath="$PROJECT_DIR$/tritronjudgev2/.vs/tritronAPI/v15/Server/sqlite3/storage.ide-wal" afterDir="false" />
     </list>
@@ -56,6 +54,8 @@
       <workItem from="1563865325282" duration="14000" />
       <workItem from="1570980968030" duration="1120000" />
       <workItem from="1570982917833" duration="22000" />
+      <workItem from="1571837020631" duration="13000" />
+      <workItem from="1572244399916" duration="25000" />
     </task>
     <servers />
   </component>
