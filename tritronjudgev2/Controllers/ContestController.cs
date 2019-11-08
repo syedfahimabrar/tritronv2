@@ -29,7 +29,7 @@ namespace tritronAPI.Controllers
         public async Task<IActionResult> AddContest([FromBody] CreateContestDto contest)
         {
             var con = _mapper.Map<Contest>(contest);
-            this._uow.ContestRepository.Add(con);
+            _uow.ContestRepository.Add(con);
             _uow.Save();
             return Ok(new Contest() { Id = con.Id });
         }

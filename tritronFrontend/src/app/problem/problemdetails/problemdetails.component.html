@@ -26,7 +26,7 @@
                                                 <div class="col-sm-5 right">
                                                     <p class="text-info">Author: {{model.authorName}}</p>
                                                     <img class="rounded img-raised"
-                                                         src="{{model.problemAuthor.profilePicUrl}}">
+                                                         src="{{model.problemAuthor?.profilePicUrl}}">
                                                 </div>
                                             </a>
                                         </div>
@@ -48,8 +48,7 @@
                                                     value="{{lan.id}}">{{lan.extension}}</option>
                                         </select>
                                         <br>
-                                        <td-code-editor flex language="js" style="height: 500px" theme="vs-dark">
-
+                                        <td-code-editor   [editorOptions]="{fontsize:20}"  flex language="cpp" style="height: 500px" theme="vs-dark">
                                         </td-code-editor>
 
                                     </form>

@@ -21,6 +21,7 @@ export class ProblemdetailsComponent implements OnInit,OnDestroy {
   model:ProblemViewModel;
   submitcode:SubmitCodeModel;
   language;
+  code:readonly ;
   token:string;
   username:string;
   loggedin:boolean;
@@ -56,6 +57,7 @@ export class ProblemdetailsComponent implements OnInit,OnDestroy {
     console.log(this.selectedlen);
   }
   ngOnInit() {
+    this.code = "Hello";
   }
   ngOnDestroy(): void {
   }

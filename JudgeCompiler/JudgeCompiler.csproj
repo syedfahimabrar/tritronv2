@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestrictedProcessCore\RestrictedProcessCore.csproj" />
+    <ProjectReference Include="..\TritronAPI.common\TritronAPI.common.csproj" />
+    <ProjectReference Include="..\tritronjudgev2\Models\Models.csproj" />
+  </ItemGroup>
+
+</Project>
