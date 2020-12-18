@@ -1,0 +1,61 @@
+.LandingImageBg {
+
+}
+.second-column {
+    background-color: #3B4D94;
+    padding-top: 2%;
+    padding: 4 px;
+}
+
+.btn {
+    color: white;
+}
+.btn:hover {
+    border-color: white;
+}
+.LeftSection {
+    width: 69% !important;
+}
+
+.fullheight {
+    height: 100%;
+}
+.home {
+    height: 100%;
+}
+
+.who_details{
+    background-color: white;
+    height: 30 vh !important;
+}
+
+.hero_white {
+    color: white;
+     margin-top: 130px; 
+     text-align: center;
+     font-family: Mongolian Baiti;
+}
+.first-column {
+    background-image: url("images/prog@2x.png");
+    height: 100 vh;
+    background-size: cover;
+    background-position:center;
+    background-repeat:no-repeat
+}
+
+@media (min-width: 768px){
+
+    .second-column {
+        margin-left: auto;
+        max-width: 29.333333% !important;
+    }
+    .first-column {
+        flex: 1 0 66.666667% !important;
+        max-width: 70.666667% !important;
+        background-image: url("images/prog.png");
+    }
+
+}
+
+
+
