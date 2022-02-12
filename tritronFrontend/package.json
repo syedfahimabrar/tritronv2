@@ -32,7 +32,7 @@
     "@covalent/code-editor": "^2.1.1",
     "@kolkov/angular-editor": "^0.16.2",
     "@ng-bootstrap/ng-bootstrap": "4.1.0",
-    "ajv": "6.10.0",
+    "ajv": "6.12.3",
     "ajv-keywords": "3.4.0",
     "angular-sortablejs": "^2.7.0",
     "bootstrap": "^4.3.1",
